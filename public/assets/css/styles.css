@@ -135,7 +135,11 @@ button { font: inherit; cursor: pointer; }
 .hero__content { position: relative; z-index: 1; display: flex; flex-direction: column; align-items: center; gap: 20px; padding: 60px var(--gutter); max-width: 1000px; }
 .hero__icon { width: 85px; height: 85px; }
 .hero__sub { font-weight: 700; font-size: clamp(16px, 1.6vw, 20px); text-align: center; text-shadow: 0 0 20px #000; max-width: 760px; }
-.hero .btn { margin-top: 24px; }
+.hero .btn { margin-top: 34px; }
+/* Portada: título y subtítulo en una sola línea, como en Figma */
+.hero--nowrap .hero__content { max-width: 1240px; padding-bottom: 92px; }
+.hero--nowrap .hero__sub { max-width: none; }
+@media (min-width: 1100px) { .hero--nowrap .h-hero, .hero--nowrap .hero__sub { white-space: nowrap; } }
 
 /* ── Secciones genéricas ─────────────────────────────── */
 .section { padding: 96px 0; position: relative; }

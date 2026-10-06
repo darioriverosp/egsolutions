@@ -194,8 +194,8 @@ ${footer()}
 }
 
 // ── Piezas reutilizables ─────────────────────────────────────────
-function heroSection({ bg, icon, title, subtitle, btnLabel, btnHref, btnVariant = 'white' }) {
-  return `<section class="hero reveal">
+function heroSection({ bg, icon, title, subtitle, btnLabel, btnHref, btnVariant = 'white', nowrap = false }) {
+  return `<section class="hero reveal${nowrap ? ' hero--nowrap' : ''}">
   ${img(bg, '', 'class="hero__bg"')}
   <div class="hero__content">
     ${icon ? img(icon, '', 'class="hero__icon"') : ''}
@@ -411,6 +411,7 @@ function buildHome() {
 ${heroSection({
     bg: 'hero-home.webp',
     icon: 'ico-tools.svg',
+    nowrap: true,
     title: 'Ingeniería de precisión que mueve Venezuela',
     subtitle: 'Soluciones integrales, rigor técnico y experiencia local para ejecutar proyectos de alta complejidad.',
     btnLabel: 'Conoce nuestros servicios',
