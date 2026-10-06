@@ -1,0 +1,15 @@
+<svg preserveAspectRatio="none" overflow="visible" style="display: block;" width="85" height="85" viewBox="0 0 85 85" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g id="icon / tabler-icons / armchair" clip-path="url(#clip0_0_1014)">
+<g id="Vector">
+</g>
+<path id="Vector_2" d="M17.7083 38.9583C19.587 38.9583 21.3886 39.7046 22.717 41.033C24.0454 42.3614 24.7917 44.163 24.7917 46.0417V53.125H60.2083V46.0417C60.2083 44.163 60.9546 42.3614 62.283 41.033C63.6114 39.7046 65.4131 38.9583 67.2917 38.9583C69.1703 38.9583 70.972 39.7046 72.3003 41.033C73.6287 42.3614 74.375 44.163 74.375 46.0417V60.2083C74.375 62.0869 73.6287 63.8886 72.3003 65.217C70.972 66.5454 69.1703 67.2917 67.2917 67.2917H17.7083C15.8297 67.2917 14.028 66.5454 12.6997 65.217C11.3713 63.8886 10.625 62.0869 10.625 60.2083V46.0417C10.625 44.163 11.3713 42.3614 12.6997 41.033C14.028 39.7046 15.8297 38.9583 17.7083 38.9583V38.9583Z" stroke="#FF8D28" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>
+<path id="Vector_3" d="M17.7083 38.9583V21.25C17.7083 18.4321 18.8277 15.7296 20.8203 13.737C22.8129 11.7444 25.5154 10.625 28.3333 10.625H56.6667C59.4846 10.625 62.1871 11.7444 64.1797 13.737C66.1722 15.7296 67.2917 18.4321 67.2917 21.25V38.9583" stroke="#FF8D28" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>
+<path id="Vector_4" d="M21.25 67.2917V74.375" stroke="#FF8D28" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>
+<path id="Vector_5" d="M63.75 67.2917V74.375" stroke="#FF8D28" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<defs>
+<clipPath id="clip0_0_1014">
+<rect width="85" height="85" fill="white"/>
+</clipPath>
+</defs>
+</svg>
