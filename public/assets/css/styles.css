@@ -260,6 +260,13 @@ button { font: inherit; cursor: pointer; }
 .cta-photo .container { z-index: 2; }
 .cta-photo .h-slab { color: #fff; text-shadow: 4px 4px 4px rgba(0, 0, 0, .46); max-width: 467px; }
 .cta-photo .body { font-weight: 600; font-size: 20px; max-width: 420px; }
+/* Sección final de la portada: espacio vertical, texto blanco y campos como en Figma */
+.cta-photo { padding: 130px 0; }
+.cta-photo .contact-split { align-items: center; }
+.cta-photo .contact-split__text .body { color: #fff; }
+.cta-photo .form { gap: 20px; }
+.cta-photo .form input { height: 58px; font-size: 20px; }
+.cta-photo .form textarea { min-height: 214px; resize: none; padding-bottom: 76px; }
 
 /* ── Páginas de categoría ─────────────────────────────── */
 .strip { display: grid; grid-template-columns: repeat(3, 1fr); }
@@ -455,6 +462,7 @@ button { font: inherit; cursor: pointer; }
   .strip img:not(:first-child) { display: none; }
   .form input { height: 56px; font-size: 17px; }
   .form textarea { font-size: 17px; }
+  .cta-photo { padding: 64px 0; }
   .btn { width: 100%; padding: 12px 20px; }
   .btn--small { width: auto; }
   .cards-carousel { padding: 0 44px; }
