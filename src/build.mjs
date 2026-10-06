@@ -30,6 +30,14 @@ function img(name, alt, attrs = '') {
 }
 function slugTitle(cat) { return categories.find((c) => c.slug === cat); }
 
+// Enlace de WhatsApp con un saludo ya escrito (el usuario solo tiene que pulsar "Enviar").
+function waLink(context) {
+  const greeting = context
+    ? `Hola EG SOLUTIONS, vengo de la página web y quisiera información sobre ${context}.`
+    : 'Hola EG SOLUTIONS, vengo de la página web y quisiera más información sobre sus servicios.';
+  return `https://wa.me/${site.whatsapp}?text=${encodeURIComponent(greeting)}`;
+}
+
 // ── Botones ─────────────────────────────────────────
 function btn(label, href, variant = 'orange', extra = '') {
   return `<a class="btn btn--${variant} ${extra}" href="${href}">${esc(label)}</a>`;
@@ -143,7 +151,7 @@ function footer() {
     </div>
   </div>
 </footer>
-<a class="wa-float" href="https://wa.me/${site.whatsapp}" target="_blank" rel="noopener" aria-label="Escríbenos por WhatsApp">
+<a class="wa-float" href="${waLink()}" target="_blank" rel="noopener" aria-label="Escríbenos por WhatsApp">
   <svg viewBox="0 0 32 32"><path d="M16 3C9 3 3.3 8.7 3.3 15.7c0 2.5.7 4.8 1.9 6.8L3 29l6.7-2.1c1.9 1 4.1 1.6 6.3 1.6 7 0 12.7-5.7 12.7-12.7S23 3 16 3zm0 23.1c-2 0-3.9-.5-5.6-1.5l-.4-.2-4 1.3 1.3-3.9-.3-.4a10.4 10.4 0 0 1-1.6-5.6C5.4 9.9 10.2 5.1 16 5.1S26.6 9.9 26.6 15.7 21.8 26.1 16 26.1zm5.8-7.7c-.3-.2-1.9-.9-2.1-1-.3-.1-.5-.2-.7.1-.2.3-.8 1-1 1.2-.2.2-.4.2-.7.1-.3-.2-1.3-.5-2.5-1.5-.9-.8-1.5-1.8-1.7-2.1-.2-.3 0-.5.1-.6.1-.1.3-.4.4-.5.1-.2.2-.3.3-.5.1-.2 0-.4 0-.5 0-.2-.7-1.7-1-2.3-.2-.6-.5-.5-.7-.5h-.6c-.2 0-.5.1-.8.4-.3.3-1 1-1 2.4s1.1 2.8 1.2 3c.1.2 2.1 3.2 5.1 4.5.7.3 1.3.5 1.7.6.7.2 1.4.2 1.9.1.6-.1 1.9-.8 2.1-1.5.3-.7.3-1.3.2-1.5-.1-.1-.3-.2-.6-.4z"/></svg>
 </a>
 <script src="/assets/js/main.js"></script>`;
@@ -299,7 +307,7 @@ function readySection() {
             )
             .join('')}
         </div>
-        ${btn('Nuestro WhatsApp', `https://wa.me/${site.whatsapp}`, 'green')}
+        ${btn('Nuestro WhatsApp', waLink(), 'green')}
       </div>
       <a class="map" href="https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(site.sedes[0].mapa)}" target="_blank" rel="noopener" aria-label="Ver ubicación en Google Maps">
         ${img('map.webp', 'Mapa de ubicación de EG SOLUTIONS')}
@@ -321,7 +329,7 @@ function ctaPhotoSection() {
   </section>`;
 }
 
-function svcFooterCta() {
+function svcFooterCta(svcName) {
   return `<section class="section reveal">
     <div class="container contact-split">
       <div class="contact-split__text">
@@ -339,7 +347,7 @@ function svcFooterCta() {
             )
             .join('')}
         </div>
-        ${btn('Nuestro WhatsApp', `https://wa.me/${site.whatsapp}`, 'green')}
+        ${btn('Nuestro WhatsApp', waLink(svcName), 'green')}
       </div>
       ${leadForm({ white: false })}
     </div>
@@ -509,7 +517,7 @@ ${heroSection({ bg: cat.hero, title: cat.title, subtitle: cat.subtitle, btnLabel
   </div>
 </section>
 
-${svcFooterCta()}
+${svcFooterCta(cat.name)}
 `;
   write(`servicios/${cat.slug}.html`, page({ title: cat.name, description: cat.subtitle, active: 'servicios', body }));
 }
@@ -542,7 +550,7 @@ function buildService(svc) {
       <ul>${bullets}</ul>
     </div>
     <div>
-      ${btn('Nuestro WhatsApp', `https://wa.me/${site.whatsapp}`, 'green', 'btn--wide')}
+      ${btn('Nuestro WhatsApp', waLink(svc.title), 'green', 'btn--wide')}
     </div>
   </div>
 </section>
@@ -568,7 +576,7 @@ function buildService(svc) {
   </div>
 </section>
 
-${svcFooterCta()}
+${svcFooterCta(svc.title)}
 
 ${related.length ? `<section class="section reveal">
   <div class="container">
@@ -720,7 +728,7 @@ function buildArticle(a) {
         )
         .join('')}
       <h2 style="margin-top:16px">Cotiza con nosotros</h2>
-      ${btn('Nuestro WhatsApp', `https://wa.me/${site.whatsapp}`, 'green')}
+      ${btn('Nuestro WhatsApp', waLink(), 'green')}
       ${btn('Llenar formulario', '/contacto.html', 'orange')}
     </aside>
   </div>
@@ -729,7 +737,7 @@ function buildArticle(a) {
 <section class="section section--dark reveal">
   <div class="container">
     <div class="section__head"><h2 class="h-slab on-dark">Soluciones relacionadas</h2></div>
-    <div class="sol-grid">${relatedCat.map((p) => `<a class="card sol-card" href="/${p.href}"><div class="crop">${img(p.img, p.title, 'style="width:100%;height:100%;object-fit:cover"')}</div><div class="card__body"><p class="card__title">${plain(p.title)}</p><p class="card__text">${esc(p.text)}</p></div></a>`).join('')}</div>
+    <div class="sol-grid">${relatedCat.map((p) => `<a class="card sol-card card--light" href="/${p.href}"><div class="crop">${img(p.img, p.title, 'style="width:100%;height:100%;object-fit:cover"')}</div><div class="card__body"><p class="card__title">${plain(p.title)}</p><p class="card__text">${esc(p.text)}</p></div></a>`).join('')}</div>
   </div>
 </section>
 
@@ -747,7 +755,7 @@ function buildContacto() {
       ${img('logo.png', site.name, 'class="contact-hero__logo"')}
       <h1 class="h-slab">Solicita una Inspección o Cotización</h1>
       <p class="body">Un especialista técnico evaluará tu solicitud y se pondrá en contacto contigo en menos de 24 horas hábiles.</p>
-      ${btn('Nuestro WhatsApp', `https://wa.me/${site.whatsapp}`, 'green')}
+      ${btn('Nuestro WhatsApp', waLink(), 'green')}
     </div>
     ${leadForm({ white: true })}
   </div>
