@@ -1,6 +1,8 @@
-node_modules/
-src/raw/
-*.tmp
 
 # Local Netlify folder
+*.tmp
 .netlify
+.netlify/
+node_modules/
+src/figma-export/
+src/raw/

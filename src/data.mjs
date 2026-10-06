@@ -64,7 +64,7 @@ export const categories = [
     h2: 'Garantizamos la {o}temperatura ideal y la protección{/o} de tus activos sin interrupciones operativas.',
     intro: 'En EG SOLUTIONS C.A. **diseñamos, instalamos y mantenemos sistemas de aire acondicionado y refrigeración de alta exigencia.** Como empresa multidisciplinaria, abordamos cada proyecto integrando ingeniería mecánica y eléctrica para asegurar el máximo rendimiento energético y resguardar la operatividad de instalaciones comerciales, industriales y de salud en todo el país.',
     introBtn: 'Solicitar evaluación térmica',
-    strip: ['proj-refrigeracion.webp', 'card-climatizacion.webp', 'nos-strip2.webp'], // PENDIENTE
+    strip: ['nos-strip1.webp', 'nos-strip2.webp', 'nos-strip3.webp'],
     sectionTitle: 'Nuestra experiencia en termodinámica transformada en ventajas para tu empresa',
     resultsTitle: 'Resultados que respaldan nuestra ingeniería térmica.',
     resultsSub: 'Con criterios de eficiencia energética y respuesta inmediata.',
@@ -86,7 +86,7 @@ export const categories = [
     h2: 'Optimizamos el {o}valor de tus propiedades{/o} y garantizamos el funcionamiento ininterrumpido de tu infraestructura.',
     intro: 'En EG SOLUTIONS C.A. **asumimos la administración técnica y el mantenimiento preventivo y correctivo de instalaciones corporativas, comerciales, industriales y residenciales**. Centralizamos la ingeniería civil, eléctrica, mecánica y de sistemas bajo una sola dirección operativa para prolongar la vida útil de tus inmuebles, eliminar paradas críticas y liberar a tu equipo directivo del desgaste logístico.',
     introBtn: 'Solicitar diagnóstico de infraestructura',
-    strip: ['nos-strip1.webp', 'remod-corp.webp', 'nos-strip3.webp'], // PENDIENTE
+    strip: ['nos-strip1.webp', 'nos-strip2.webp', 'nos-strip3.webp'],
     sectionTitle: 'Nuestra ingeniería de gestión convertida en ahorro, control y tranquilidad',
     resultsTitle: 'Resultados que respaldan nuestra gestión inmobiliaria y corporativa',
     resultsSub: 'Con criterios de preservación patrimonial, respuesta oportuna y transparencia.',
@@ -108,7 +108,7 @@ export const categories = [
     h2: 'Garantizamos el {o}funcionamiento impecable{/o} de tu infraestructura y el {o}confort de tus clientes{/o}\nsin paralizar tus operaciones',
     intro: 'En EG SOLUTIONS C.A. **centralizamos el diseño, ejecución y mantenimiento preventivo de áreas críticas en el sector hospitalidad.** Como empresa multidisciplinaria, abordamos cada desafío integrando obras civiles, electromecánicas y automatización para erradicar las habitaciones "fuera de servicio" y resguardar la reputación y operatividad de hoteles, resorts y alojamientos de alta exigencia en todo el país.',
     introBtn: 'Solicitar inspección',
-    strip: ['nos-strip1.webp', 'remod-corp.webp', 'card-remod-corporativa.webp'], // PENDIENTE
+    strip: ['hotel-strip1.webp', 'hotel-strip2.webp', 'hotel-strip3.webp'],
     sectionTitle: 'Ingeniería de alta exigencia transformada\nen experiencias de cinco estrellas',
     resultsTitle: 'Resultados que respaldan nuestros servicios para el sector hotelero.',
     resultsSub: 'Con criterios de eficiencia en mantenimiento y remodelación.',
@@ -191,7 +191,7 @@ export const services = [
     ],
   },
   {
-    slug: 'climatizacion-corporativa', cat: 'climatizacion', img: 'card-climatizacion.webp', // PENDIENTE
+    slug: 'climatizacion-corporativa', cat: 'climatizacion', img: 'svc-climatizacion-corporativa.webp',
     title: 'Climatización Corporativa (HVAC)',
     summary: 'Implementación de sistemas de aire acondicionado central, equipos VRF/VRV y unidades tipo paquete (Rooftop) para edificios de oficinas, hoteles, centros comerciales y galpones. Garantizamos confort térmico y calidad del aire interior con eficiencia energética.',
     intro: 'Implementación de sistemas de aire acondicionado central, equipos VRF/VRV y unidades tipo paquete (Rooftop) para edificios de oficinas, hoteles, centros comerciales y galpones.\n\nGarantizamos confort térmico y calidad del aire interior con eficiencia energética.',
@@ -204,7 +204,7 @@ export const services = [
     ],
   },
   {
-    slug: 'mantenimiento-climatizacion', cat: 'climatizacion', img: 'cta-bg.webp', // PENDIENTE
+    slug: 'mantenimiento-climatizacion', cat: 'climatizacion', img: 'svc-mantenimiento-climatizacion.webp',
     title: 'Mantenimiento Preventivo y Correctivo',
     summary: 'Planes de mantenimiento programado para flotas de equipos de refrigeración y aires acondicionados. Evitamos paradas críticas, extendemos la vida útil de los compresores y corregimos fallas antes de que afecten el ritmo de tu negocio.',
     intro: 'Planes de mantenimiento programado para flotas de equipos de refrigeración y aires acondicionados.\n\nEvitamos paradas críticas, extendemos la vida útil de los compresores y corregimos fallas antes de que afecten el ritmo de tu negocio.',
@@ -217,7 +217,7 @@ export const services = [
     ],
   },
   {
-    slug: 'climatizacion-hospitalaria', cat: 'climatizacion', img: 'nos-strip3.webp', // PENDIENTE
+    slug: 'climatizacion-hospitalaria', cat: 'climatizacion', img: 'svc-climatizacion-hospitalaria.webp',
     title: 'Climatización Hospitalaria y Áreas Críticas',
     summary: 'Ingeniería mecánica aplicada al sector salud. Diseño de sistemas con flujo laminar, presión positiva/negativa y filtros absolutos para quirófanos y laboratorios, cumpliendo estrictamente con las normativas de bioseguridad.',
     intro: 'Ingeniería mecánica aplicada al sector salud. Diseño de sistemas con flujo laminar, presión positiva/negativa y filtros absolutos para quirófanos y laboratorios, cumpliendo estrictamente con las normativas de bioseguridad.',
@@ -232,7 +232,7 @@ export const services = [
 
   // ── Gestión de inmuebles ──
   {
-    slug: 'planes-mantenimiento', cat: 'gestion-inmuebles', img: 'card-mantenimiento.webp', // PENDIENTE
+    slug: 'planes-mantenimiento', cat: 'gestion-inmuebles', img: 'svc-planes-mantenimiento.webp',
     title: 'Planes de Mantenimiento Preventivo y Correctivo',
     summary: 'Programación de rutinas de inspección y servicio para instalaciones eléctricas, climatización, bombas de agua y estructuras civiles. Anticipamos fallas operativas para reducir costos de reparación hasta en un 40% y mantener tu inmueble en óptimas condiciones 24/7.',
     intro: 'Programación de rutinas de inspección y servicio para instalaciones eléctricas, climatización, bombas de agua y estructuras civiles.\n\nAnticipamos fallas operativas para reducir costos de reparación hasta en un 40% y mantener tu inmueble en óptimas condiciones 24/7.',
@@ -258,7 +258,7 @@ export const services = [
     ],
   },
   {
-    slug: 'adecuacion-areas-comunes', cat: 'gestion-inmuebles', img: 'nos-vision.webp', // PENDIENTE
+    slug: 'adecuacion-areas-comunes', cat: 'gestion-inmuebles', img: 'svc-adecuacion-areas-comunes.webp',
     title: 'Adecuación y Conservación de Áreas Comunes e Inmuebles',
     summary: 'Trabajos de pintura, reparación de fachadas, impermeabilización de losas, nivelación de superficies y mejoras estético-funcionales para condominios e inmuebles comerciales. Conservamos la plusvalía del inmueble con acabados de alto nivel profesional.',
     intro: 'Trabajos de pintura, reparación de fachadas, impermeabilización de losas, nivelación de superficies y mejoras estético-funcionales para condominios e inmuebles comerciales. Conservamos la plusvalía del inmueble con acabados de alto nivel profesional.',
@@ -271,7 +271,7 @@ export const services = [
     ],
   },
   {
-    slug: 'auditorias-tecnicas', cat: 'gestion-inmuebles', img: 'nos-strip2.webp', // PENDIENTE
+    slug: 'auditorias-tecnicas', cat: 'gestion-inmuebles', img: 'svc-auditorias-tecnicas.webp',
     title: 'Auditorías Técnicas y Diagnóstico de Infraestructura',
     summary: 'Inspecciones técnicas especializadas con equipos de medición para evaluar el estado real de redes eléctricas, sistemas hidráulicos, impermeabilización y climatización. Entregamos informes ejecutivos con planes priorizados de inversión y adecuación normativa.',
     intro: 'Inspecciones técnicas especializadas con equipos de medición para evaluar el estado real de redes eléctricas, sistemas hidráulicos, impermeabilización y climatización. Entregamos informes ejecutivos con planes priorizados de inversión y adecuación normativa.',
@@ -286,7 +286,7 @@ export const services = [
 
   // ── Sector hotelero ──
   {
-    slug: 'remodelacion-areas-comunes', cat: 'sector-hotelero', img: 'nos-strip1.webp', // PENDIENTE
+    slug: 'remodelacion-areas-comunes', cat: 'sector-hotelero', img: 'svc-remodelacion-areas-comunes.webp',
     title: 'Remodelación de Áreas Comunes',
     summary: 'Adecuación de lobbies, restaurantes, fachadas y mantenimiento especializado de piscinas y cuartos de máquinas, ejecutando obras civiles sin paralizar el funcionamiento del hotel.',
     intro: 'Adecuación de lobbies, restaurantes, fachadas y mantenimiento especializado de piscinas y cuartos de máquinas, ejecutando obras civiles sin paralizar el funcionamiento del hotel.',
@@ -298,7 +298,7 @@ export const services = [
     ],
   },
   {
-    slug: 'mantenimiento-hotelero', cat: 'sector-hotelero', img: 'remod-corp.webp', // PENDIENTE
+    slug: 'mantenimiento-hotelero', cat: 'sector-hotelero', img: 'svc-mantenimiento-hotelero.webp',
     title: 'Mantenimiento Preventivo Integral',
     pageTitle: 'Mantenimiento Preventivo Integral\n(Cero Habitaciones Bloqueadas)',
     summary: 'Planes integrados y centralizados para plomería, electricidad y cerrajería. Protegemos tu inventario de habitaciones para maximizar la tasa de ocupación y los ingresos del hotel.',
@@ -311,7 +311,7 @@ export const services = [
     ],
   },
   {
-    slug: 'automatizacion-eficiencia', cat: 'sector-hotelero', img: 'card-remod-corporativa.webp', // PENDIENTE
+    slug: 'automatizacion-eficiencia', cat: 'sector-hotelero', img: 'svc-automatizacion-eficiencia.webp',
     title: 'Automatización y Eficiencia Energética',
     summary: 'Integración de sistemas de gestión de edificios (Building Management Systems) para el control inteligente de la infraestructura hotelera. Transformamos tu hotel tradicional en un ecosistema tecnológico eficiente y monitoreado en tiempo real.',
     intro: 'Integración de sistemas de gestión de edificios (Building Management Systems) para el control inteligente de la infraestructura hotelera. Transformamos tu hotel tradicional en un ecosistema tecnológico eficiente y monitoreado en tiempo real.',
@@ -324,7 +324,7 @@ export const services = [
     ],
   },
   {
-    slug: 'climatizacion-hotelera', cat: 'sector-hotelero', img: 'card-climatizacion.webp', // PENDIENTE
+    slug: 'climatizacion-hotelera', cat: 'sector-hotelero', img: 'svc-climatizacion-hotelera.webp',
     title: 'Climatización Hotelera de Precisión',
     summary: 'Diseño, instalación y mantenimiento de sistemas de aire acondicionado centralizados e individuales, enfocados en el confort térmico y el silencio absoluto para el descanso del huésped.',
     intro: 'Diseño, instalación y mantenimiento de sistemas de aire acondicionado centralizados e individuales, enfocados en el confort térmico y el silencio absoluto para el descanso del huésped.',
@@ -365,7 +365,7 @@ export const whyUs = [
     q: 'Delega todo tu mantenimiento técnico en un sólo equipo de especialistas',
     title: 'Delega todo tu mantenimiento técnico en {o}un sólo equipo{/o} de especialistas',
     text: 'Eliminamos el desgaste logístico de lidiar con múltiples proveedores. Integramos obras civiles, proyectos eléctricos y sistemas de climatización bajo una misma dirección de ingeniería. Unificamos las responsabilidades en un solo equipo para garantizar fluidez, ahorro de tiempo y un control de calidad absoluto en cada fase de tu proyecto.',
-    btn: 'Conoce nuestros servicios más destacados', href: 'soluciones.html', img: 'home-team.webp', // PENDIENTE
+    btn: 'Conoce nuestros servicios más destacados', href: 'soluciones.html', img: 'frase3.webp',
   },
 ];
 

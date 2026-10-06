@@ -4,6 +4,15 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import { site, categories, services, homeCards, whyUs, projectCards, articles, testimonials } from './data.mjs';
+import { bodies } from './articles-bodies.mjs';
+
+// Texto íntegro y recorte de la foto principal de cada artículo
+for (const a of articles) {
+  const x = bodies[a.slug];
+  if (!x) continue;
+  if (x.body) { a.body = x.body; a.pending = false; }
+  a.pos = x.pos;
+}
 
 const OUT = path.resolve('public');
 
@@ -710,7 +719,7 @@ function buildArticle(a) {
         ${img('ico-instagram-orange.svg', '')}
         <h1>${plain(a.title)}</h1>
       </div>
-      ${img(a.img, a.title, 'class="article__photo" style="width:100%;object-fit:cover"')}
+      ${img(a.img, a.title, `class="article__photo" style="width:100%;object-fit:cover;object-position:${a.pos || '50% 50%'}"`)}
       <div class="article__cta">${btn('Haz clic aquí para ver la publicación completa', site.instagram, 'orange', 'btn--wide')}</div>
       <div class="article__body">${a.body ? paragraphs(a.body) : `<p>${esc(a.text)}</p>`}</div>
       ${a.pending ? `<p class="article__pending">Este artículo se completará con el texto íntegro de la publicación de Instagram.</p>` : ''}
