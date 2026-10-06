@@ -3,6 +3,7 @@
 // Uso: node src/build.mjs
 import fs from 'node:fs';
 import path from 'node:path';
+import crypto from 'node:crypto';
 import { site, categories, services, homeCards, whyUs, projectCards, articles, testimonials } from './data.mjs';
 import { bodies } from './articles-bodies.mjs';
 
@@ -15,6 +16,7 @@ for (const a of articles) {
 }
 
 const OUT = path.resolve('public');
+const ver = (f) => crypto.createHash('md5').update(fs.readFileSync(path.join(OUT, f))).digest('hex').slice(0, 8);
 
 // ── Helpers de texto ─────────────────────────────────────────
 function esc(s) {
@@ -100,11 +102,11 @@ function header(active) {
     </a>
     <button type="button" class="nav-toggle" aria-label="Abrir menú" aria-expanded="false"><span></span></button>
     <nav class="nav" aria-label="Principal">
+      ${link('nosotros', 'Nosotros', '/nosotros.html')}
       ${link('soluciones', 'Soluciones', '/soluciones.html')}
       <a class="nav__link" href="#" data-mega-trigger aria-haspopup="true" aria-controls="mega-servicios">
         Servicios ${img('ico-chevron-down.svg', '')}
       </a>
-      ${link('nosotros', 'Nosotros', '/nosotros.html')}
       <a class="nav__cta" href="/contacto.html">Contacto</a>
     </nav>
   </div>
@@ -163,7 +165,7 @@ function footer() {
 <a class="wa-float" href="${waLink()}" target="_blank" rel="noopener" aria-label="Escríbenos por WhatsApp">
   <svg viewBox="0 0 32 32"><path d="M16 3C9 3 3.3 8.7 3.3 15.7c0 2.5.7 4.8 1.9 6.8L3 29l6.7-2.1c1.9 1 4.1 1.6 6.3 1.6 7 0 12.7-5.7 12.7-12.7S23 3 16 3zm0 23.1c-2 0-3.9-.5-5.6-1.5l-.4-.2-4 1.3 1.3-3.9-.3-.4a10.4 10.4 0 0 1-1.6-5.6C5.4 9.9 10.2 5.1 16 5.1S26.6 9.9 26.6 15.7 21.8 26.1 16 26.1zm5.8-7.7c-.3-.2-1.9-.9-2.1-1-.3-.1-.5-.2-.7.1-.2.3-.8 1-1 1.2-.2.2-.4.2-.7.1-.3-.2-1.3-.5-2.5-1.5-.9-.8-1.5-1.8-1.7-2.1-.2-.3 0-.5.1-.6.1-.1.3-.4.4-.5.1-.2.2-.3.3-.5.1-.2 0-.4 0-.5 0-.2-.7-1.7-1-2.3-.2-.6-.5-.5-.7-.5h-.6c-.2 0-.5.1-.8.4-.3.3-1 1-1 2.4s1.1 2.8 1.2 3c.1.2 2.1 3.2 5.1 4.5.7.3 1.3.5 1.7.6.7.2 1.4.2 1.9.1.6-.1 1.9-.8 2.1-1.5.3-.7.3-1.3.2-1.5-.1-.1-.3-.2-.6-.4z"/></svg>
 </a>
-<script src="/assets/js/main.js"></script>`;
+<script src="/assets/js/main.js?v=${ver('assets/js/main.js')}"></script>`;
 }
 
 // ── Esqueleto de página ─────────────────────────────────────────
@@ -179,7 +181,7 @@ function page({ title, description, active, bodyClass = '', body, bodyAttrs = ''
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Roboto:wght@400;500;700&family=Roboto+Slab:wght@700;800&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="/assets/css/styles.css">
+<link rel="stylesheet" href="/assets/css/styles.css?v=${ver('assets/css/styles.css')}">
 </head>
 <body class="${bodyClass}" data-whatsapp="${site.whatsapp}" ${bodyAttrs}>
 ${header(active)}
@@ -204,8 +206,9 @@ function heroSection({ bg, icon, title, subtitle, btnLabel, btnHref, btnVariant 
 </section>`;
 }
 
-function iconsRow(light = false) {
-  return `<div class="icons-row${light ? ' icons-row--light' : ''}">
+// onDark: etiquetas blancas (fondo oscuro, portada). Por defecto etiquetas oscuras (fondo claro, Nosotros).
+function iconsRow(onDark = false) {
+  return `<div class="icons-row${onDark ? ' icons-row--on-dark' : ''}">
     ${categories
       .map(
         (c) => `<a href="/servicios/${c.slug}.html">
@@ -244,7 +247,7 @@ function partnersStrip(title) {
 </section>`;
 }
 
-function testimonialsSection({ title, sub }) {
+function testimonialsSection({ title, sub, cta }) {
   return `<section class="section section--dark reveal">
   <div class="container">
     <div class="section__head">
@@ -265,8 +268,15 @@ function testimonialsSection({ title, sub }) {
         )
         .join('')}
     </div>
+    ${cta ? `<div class="cards-cta">${btn(cta.label, cta.href, 'orange')}</div>` : ''}
   </div>
 </section>`;
+}
+
+// Adornos del diseño (formas naranjas y patrón gris). Solo en escritorio.
+function deco(kind, style = '') {
+  const src = { shape: 'deco-hex.png', 'pat-l': 'deco-pattern-l.png', 'pat-r': 'deco-pattern-r.png' }[kind];
+  return `<img class="deco deco--${kind}" src="/assets/img/${src}" alt="" aria-hidden="true" loading="lazy" decoding="async" style="${style}">`;
 }
 
 function ctaFormSection({ dark = true, title, text, btnLabel = 'Enviar' } = {}) {
@@ -299,7 +309,9 @@ function leadForm({ white = true, btnLabel = 'Enviar' } = {}) {
 }
 
 function readySection() {
-  return `<section class="section reveal">
+  return `<section class="section section--deco reveal">
+    ${deco('pat-l', 'left:-247px;top:0;width:536px;opacity:.58')}
+    ${deco('pat-r', 'right:-246px;bottom:60px;width:536px')}
     <div class="container ready">
       <div class="ready__text">
         <h2 class="h-section">¿Listo para llevar la gestión de tus inmuebles al siguiente nivel?</h2>
@@ -327,11 +339,12 @@ function readySection() {
 
 function ctaPhotoSection() {
   return `<section class="cta-photo reveal">
-    ${img('obras-strip1.webp', '', 'class="cta-photo__bg"')}
+    ${img('cta-bg.webp', '', 'class="cta-photo__bg"')}
     <div class="container contact-split">
       <div class="contact-split__text">
         <h2 class="h-slab">Solicita una Inspección o Cotización</h2>
         <p class="body">Un especialista técnico evaluará tu solicitud y se pondrá en contacto contigo en menos de 24 horas hábiles.</p>
+        ${btn('Contáctanos', '/contacto.html', 'orange')}
       </div>
       ${leadForm({ white: false })}
     </div>
@@ -397,24 +410,36 @@ function buildHome() {
   const body = `
 ${heroSection({
     bg: 'hero-home.webp',
+    icon: 'ico-tools.svg',
     title: 'Ingeniería de precisión que mueve Venezuela',
     subtitle: 'Soluciones integrales, rigor técnico y experiencia local para ejecutar proyectos de alta complejidad.',
     btnLabel: 'Conoce nuestros servicios',
     btnHref: '#servicios',
   })}
 
-<section class="section reveal">
-  <div class="container intro-split">
-    <div class="intro-split__text">
-      <h2 class="h-section">Todas las soluciones de ingeniería que tu proyecto exige, en <span class="o2">un solo equipo</span></h2>
-      <p class="lead">Sabemos que delegar el mantenimiento de tus instalaciones a múltiples proveedores agota tus recursos y retrasa los resultados. En <strong class="o">EG SOLUTIONS C.A.</strong>, conjugamos todas las áreas de la ingeniería para ofrecerte un <strong>servicio integral sin fricciones.</strong> Desde el sector residencial hasta el industrial, trabajamos para garantizar la óptima operatividad de tus inmuebles con soluciones definitivas.</p>
-      ${btn('Hablemos de tu proyecto', '/contacto.html', 'dark')}
+<section class="section section--deco intro reveal">
+  ${deco('shape', 'left:-35px;top:58px;width:162px')}
+  ${deco('shape', 'left:107px;top:58px;width:162px')}
+  ${deco('shape', 'right:-27px;top:58px;width:162px;transform:scaleX(-1)')}
+  <div class="container">
+    <h2 class="h-section center intro__title">Todas las soluciones de ingeniería<br>que tu proyecto exige, en <span class="o2">un solo equipo</span></h2>
+    <div class="intro-split">
+      <div class="intro-split__text">
+        <span class="divider divider--left"></span>
+        <p class="lead">Sabemos que delegar el mantenimiento de tus instalaciones a múltiples proveedores agota tus recursos y retrasa los resultados. En <strong class="o">EG SOLUTIONS C.A.</strong>, conjugamos todas las áreas de la ingeniería para ofrecerte un <strong>servicio integral sin fricciones.</strong> Desde el sector residencial hasta el industrial, trabajamos para garantizar la óptima operatividad de tus inmuebles con soluciones definitivas.</p>
+        <span class="divider divider--left"></span>
+        ${btn('Hablemos de tu proyecto', '/contacto.html', 'dark')}
+      </div>
+      ${img('home-team.webp', 'Equipo de EG SOLUTIONS trabajando en obra', 'class="intro-split__photo" style="object-position:50% 36%"')}
     </div>
-    ${img('nos-mision.webp', 'Equipo de EG SOLUTIONS en obra', 'class="intro-split__photo"')}
   </div>
 </section>
 
-<section class="section section--dark reveal" id="servicios">
+<section class="section section--dark section--deco reveal" id="servicios">
+  ${deco('shape', 'left:-197px;top:45px;width:364px')}
+  ${deco('shape', 'right:-179px;bottom:60px;width:365px;transform:rotate(-179.88deg)')}
+  ${deco('pat-r', 'right:-154px;top:-37px;width:536px')}
+  ${deco('pat-l', 'left:-267px;bottom:40px;width:536px')}
   <div class="container">
     <p class="years"><strong>11 años de trayectoria</strong> ejecutando ingeniería con alto nivel de profesionalismo.</p>
     ${iconsRow(true)}
@@ -458,8 +483,7 @@ ${partnersStrip('Referentes de nuestras soluciones y servicios')}
   </div>
 </section>
 
-${testimonialsSection({ title: 'Opiniones de nuestros clientes', sub: 'No solo ejecutamos proyectos; construimos alianzas basadas en la confianza y el rigor técnico. Conoce la experiencia de quienes ya centralizaron su gestión operativa con nosotros, {o}clientes 100% satisfechos{/o}' })}
-<div class="container reveal" style="display:flex;justify-content:center;margin-top:-56px;padding-bottom:96px">${btn('Contáctanos', '/contacto.html', 'orange')}</div>
+${testimonialsSection({ title: 'Opiniones de nuestros clientes', sub: 'No solo ejecutamos proyectos; construimos alianzas basadas en la confianza y el rigor técnico. Conoce la experiencia de quienes ya centralizaron su gestión operativa con nosotros, {o}clientes 100% satisfechos{/o}', cta: { label: 'Contáctanos', href: '/contacto.html' } })}
 
 ${readySection()}
 ${ctaPhotoSection()}
@@ -665,8 +689,7 @@ ${partnersStrip('Referentes de nuestras soluciones y servicios')}
   </div>
 </section>
 
-${testimonialsSection({ title: 'Opiniones de nuestros clientes', sub: 'No solo ejecutamos proyectos; construimos alianzas basadas en la confianza y el rigor técnico. Conoce la experiencia de quienes ya centralizaron su gestión operativa con nosotros, {o}clientes 100% satisfechos{/o}' })}
-<div class="container reveal" style="display:flex;justify-content:center;margin-top:-56px;padding-bottom:96px">${btn('Contáctanos', '/contacto.html', 'orange')}</div>
+${testimonialsSection({ title: 'Opiniones de nuestros clientes', sub: 'No solo ejecutamos proyectos; construimos alianzas basadas en la confianza y el rigor técnico. Conoce la experiencia de quienes ya centralizaron su gestión operativa con nosotros, {o}clientes 100% satisfechos{/o}', cta: { label: 'Contáctanos', href: '/contacto.html' } })}
 `;
   write('nosotros.html', page({ title: 'Nosotros', description: 'Conoce a EG SOLUTIONS C.A.: misión, visión y 11 años de trayectoria en ingeniería e infraestructura en Venezuela.', active: 'nosotros', body }));
 }

@@ -1,7 +1,19 @@
 [build]
   publish = "public"
 
+# CSS y JS llevan ?v=<hash> en el HTML, así que pueden cachearse para siempre.
 [[headers]]
-  for = "/assets/*"
+  for = "/assets/css/*"
   [headers.values]
     Cache-Control = "public, max-age=31536000, immutable"
+
+[[headers]]
+  for = "/assets/js/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+# Las imágenes pueden cambiar sin cambiar de nombre: caché corta.
+[[headers]]
+  for = "/assets/img/*"
+  [headers.values]
+    Cache-Control = "public, max-age=86400"
