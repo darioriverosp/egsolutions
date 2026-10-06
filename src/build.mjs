@@ -465,14 +465,14 @@ ${partnersStrip('Referentes de nuestras soluciones y servicios')}
       ${whyUs
         .map(
           (w, i) => `<div class="why__item">
-            <button type="button" class="why__q" id="why-q-${i}" aria-controls="why-p-${i}" aria-expanded="${i === 0 ? 'true' : 'false'}">
+            <button type="button" class="why__q" id="why-q-${i}" aria-controls="why-p-${i}" aria-expanded="false">
               ${esc(w.q)} <span class="why__plus" aria-hidden="true">+</span>
             </button>
-            <div class="why__panel" id="why-p-${i}" role="region" aria-labelledby="why-q-${i}" ${i === 0 ? '' : 'hidden'}>
+            <div class="why__panel" id="why-p-${i}" role="region" aria-labelledby="why-q-${i}" hidden>
               <div>
                 <h3>${md(w.title)}</h3>
                 <p>${esc(w.text)}</p>
-                ${btn(w.btn, `/${w.href}`, i === 0 ? 'dark' : 'orange')}
+                ${btn(w.btn, `/${w.href}`, 'orange')}
               </div>
               ${img(w.img, '')}
             </div>

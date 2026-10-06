@@ -359,7 +359,7 @@ export const whyUs = [
     q: 'Ingeniería diseñada para que el ritmo de tu negocio nunca se detenga',
     title: 'Ingeniería diseñada para que el ritmo de tu negocio {o}nunca se detenga{/o}',
     text: 'Entendemos que el éxito de tu empresa y la tranquilidad de tus instalaciones dependen de una infraestructura que no falla. No nos limitamos a "reparar"; diseñamos y ejecutamos planes de mantenimiento técnico (preventivo y correctivo) orientados a evitar paradas críticas, asegurando que tu operatividad se mantenga al 100% sin interrupciones.',
-    btn: 'Conoce nuestros servicios más destacados', href: 'soluciones.html', img: 'card-construccion.webp', // PENDIENTE
+    btn: 'Conoce nuestros servicios más destacados', href: 'soluciones.html', img: 'frase2.webp',
   },
   {
     q: 'Delega todo tu mantenimiento técnico en un sólo equipo de especialistas',
