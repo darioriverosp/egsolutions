@@ -4,6 +4,7 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import crypto from 'node:crypto';
+import CleanCSS from 'clean-css';
 import { site, categories, services, homeCards, whyUs, projectCards, articles, testimonials } from './data.mjs';
 import { bodies } from './articles-bodies.mjs';
 
@@ -17,6 +18,13 @@ for (const a of articles) {
 
 const OUT = path.resolve('public');
 const ver = (f) => crypto.createHash('md5').update(fs.readFileSync(path.join(OUT, f))).digest('hex').slice(0, 8);
+
+// Rendimiento: CSS minificado, tipografías propias (src/fonts.css) y manifiesto de imágenes
+// (dimensiones, huella y variantes responsivas; se genera con `node src/variants.mjs`).
+const minCss = new CleanCSS({ level: 1 }).minify(fs.readFileSync(path.join(OUT, 'assets/css/styles.css'), 'utf8')).styles;
+const fontsCss = fs.readFileSync('src/fonts.css', 'utf8').trim();
+const manifest = JSON.parse(fs.readFileSync('src/img-manifest.json', 'utf8'));
+let lastPriority = null; // imagen principal (LCP) de la página en construcción
 
 // ── Helpers de texto ─────────────────────────────────────────
 function esc(s) {
@@ -36,8 +44,37 @@ function plain(s) { return esc(s).replace(/\n/g, '<br>'); }
 function paragraphs(s) {
   return s.split(/\n\n+/).map((p) => `<p>${md(p)}</p>`).join('');
 }
-function img(name, alt, attrs = '') {
-  return `<img src="/assets/img/${name}" alt="${esc(alt || '')}" loading="lazy" decoding="async" ${attrs}>`;
+// Tamaños (atributo sizes) según la clase de la imagen, para que el navegador elija la variante justa.
+const SIZES = [
+  [/hero__bg|cta-photo__bg/, '100vw'],
+  [/card__img/, '(max-width: 600px) 90vw, 250px'],
+  [/zz__photo/, '(max-width: 960px) 92vw, 578px'],
+  [/intro-split__photo/, '(max-width: 960px) 92vw, 608px'],
+  [/article__photo/, '(max-width: 960px) 92vw, 735px'],
+  [/brand__logo/, '100px'],
+  [/contact-hero__logo/, '300px'],
+  [/height:100%/, '(max-width: 600px) 90vw, 345px'],
+];
+function guessSizes(attrs) {
+  for (const [re, s] of SIZES) if (re.test(attrs)) return s;
+  return '(max-width: 960px) 92vw, 600px';
+}
+// Imagen con srcset/sizes, dimensiones (evita saltos de diseño) y URL versionada (caché de 1 año).
+// opts: { eager, priority, sizes }
+function img(name, alt, attrs = '', opts = {}) {
+  const m = manifest[name];
+  const url = (f) => `/assets/img/${f}${manifest[f] ? `?v=${manifest[f].hash}` : ''}`;
+  const sizes = opts.sizes || guessSizes(attrs);
+  let extra = '';
+  let srcset = '';
+  if (m && m.variants) {
+    srcset = [...m.variants, { file: name, w: m.w }].sort((a, b) => a.w - b.w).map((v) => `${url(v.file)} ${v.w}w`).join(', ');
+    extra += ` srcset="${srcset}" sizes="${sizes}"`;
+  }
+  if (m && m.w) extra += ` width="${m.w}" height="${m.h}"`;
+  if (opts.priority) lastPriority = { src: url(name), srcset, sizes };
+  const eager = opts.eager || opts.priority || /brand__logo|hero__icon/.test(attrs);
+  return `<img src="${url(name)}"${extra} alt="${esc(alt || '')}" loading="${eager ? 'eager' : 'lazy'}" decoding="async"${opts.priority ? ' fetchpriority="high"' : ''} ${attrs}>`;
 }
 function slugTitle(cat) { return categories.find((c) => c.slug === cat); }
 
@@ -165,11 +202,17 @@ function footer() {
 <a class="wa-float" href="${waLink()}" target="_blank" rel="noopener" aria-label="Escríbenos por WhatsApp">
   <svg viewBox="0 0 32 32"><path d="M16 3C9 3 3.3 8.7 3.3 15.7c0 2.5.7 4.8 1.9 6.8L3 29l6.7-2.1c1.9 1 4.1 1.6 6.3 1.6 7 0 12.7-5.7 12.7-12.7S23 3 16 3zm0 23.1c-2 0-3.9-.5-5.6-1.5l-.4-.2-4 1.3 1.3-3.9-.3-.4a10.4 10.4 0 0 1-1.6-5.6C5.4 9.9 10.2 5.1 16 5.1S26.6 9.9 26.6 15.7 21.8 26.1 16 26.1zm5.8-7.7c-.3-.2-1.9-.9-2.1-1-.3-.1-.5-.2-.7.1-.2.3-.8 1-1 1.2-.2.2-.4.2-.7.1-.3-.2-1.3-.5-2.5-1.5-.9-.8-1.5-1.8-1.7-2.1-.2-.3 0-.5.1-.6.1-.1.3-.4.4-.5.1-.2.2-.3.3-.5.1-.2 0-.4 0-.5 0-.2-.7-1.7-1-2.3-.2-.6-.5-.5-.7-.5h-.6c-.2 0-.5.1-.8.4-.3.3-1 1-1 2.4s1.1 2.8 1.2 3c.1.2 2.1 3.2 5.1 4.5.7.3 1.3.5 1.7.6.7.2 1.4.2 1.9.1.6-.1 1.9-.8 2.1-1.5.3-.7.3-1.3.2-1.5-.1-.1-.3-.2-.6-.4z"/></svg>
 </a>
-<script src="/assets/js/main.js?v=${ver('assets/js/main.js')}"></script>`;
+<script src="/assets/js/main.js?v=${ver('assets/js/main.js')}" defer></script>`;
 }
 
 // ── Esqueleto de página ─────────────────────────────────────────
 function page({ title, description, active, bodyClass = '', body, bodyAttrs = '' }) {
+  // Precarga de la imagen principal (LCP) registrada por heroSection durante la construcción del body
+  const pre = lastPriority;
+  lastPriority = null;
+  const preloadImg = pre
+    ? `<link rel="preload" as="image" href="${pre.src}"${pre.srcset ? ` imagesrcset="${pre.srcset}" imagesizes="${pre.sizes}"` : ''} fetchpriority="high">\n`
+    : '';
   return `<!doctype html>
 <html lang="es">
 <head>
@@ -177,11 +220,10 @@ function page({ title, description, active, bodyClass = '', body, bodyAttrs = ''
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>${esc(title)} · ${esc(site.name)}</title>
 <meta name="description" content="${esc(description)}">
-<link rel="icon" href="/assets/img/logo.png">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Roboto:wght@400;500;700&family=Roboto+Slab:wght@700;800&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="/assets/css/styles.css?v=${ver('assets/css/styles.css')}">
+<link rel="icon" type="image/webp" href="/assets/img/logo-192.webp">
+<link rel="preload" href="/assets/fonts/roboto-slab-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/assets/fonts/inter-latin.woff2" as="font" type="font/woff2" crossorigin>
+${preloadImg}<style>${fontsCss}${minCss}</style>
 </head>
 <body class="${bodyClass}" data-whatsapp="${site.whatsapp}" ${bodyAttrs}>
 ${header(active)}
@@ -195,8 +237,9 @@ ${footer()}
 
 // ── Piezas reutilizables ─────────────────────────────────────────
 function heroSection({ bg, icon, title, subtitle, btnLabel, btnHref, btnVariant = 'white', nowrap = false }) {
-  return `<section class="hero reveal${nowrap ? ' hero--nowrap' : ''}">
-  ${img(bg, '', 'class="hero__bg"')}
+  // Sin animación "reveal": el hero es la imagen principal (LCP) y debe verse desde el primer pintado
+  return `<section class="hero${nowrap ? ' hero--nowrap' : ''}">
+  ${img(bg, '', 'class="hero__bg"', { priority: true, sizes: '100vw' })}
   <div class="hero__content">
     ${icon ? img(icon, '', 'class="hero__icon"') : ''}
     <h1 class="h-hero">${md(title)}</h1>
@@ -377,7 +420,7 @@ function svcFooterCta(svcName) {
 }
 
 function carousel(images, { id, dark = false } = {}) {
-  const slides = images.map((i) => `<div class="carousel__slide">${img(i, '')}</div>`).join('');
+  const slides = images.map((i) => `<div class="carousel__slide">${img(i, '', '', { sizes: '(max-width: 1240px) 100vw, 1200px' })}</div>`).join('');
   const dots = images.map((_, i) => `<button type="button" class="carousel__dot" data-dot ${i === 0 ? 'aria-current="true"' : ''} aria-label="Foto ${i + 1}"></button>`).join('');
   return `<div class="carousel ${dark ? 'section--dark' : ''}" data-carousel id="${id}">
     <button type="button" class="carousel__btn carousel__btn--prev" data-prev aria-label="Foto anterior">${img('ico-arrow-left.svg', '')}</button>
@@ -475,7 +518,7 @@ ${partnersStrip('Referentes de nuestras soluciones y servicios')}
                 <p>${esc(w.text)}</p>
                 ${btn(w.btn, `/${w.href}`, 'orange')}
               </div>
-              ${img(w.img, '')}
+              ${img(w.img, '', '', { sizes: '(max-width: 960px) 92vw, 480px' })}
             </div>
           </div>`
         )
@@ -521,7 +564,7 @@ ${heroSection({ bg: cat.hero, title: cat.title, subtitle: cat.subtitle, btnLabel
   </div>
 </section>
 
-<div class="strip reveal">${cat.strip.map((i) => img(i, '')).join('')}</div>
+<div class="strip reveal">${cat.strip.map((i) => img(i, '', '', { sizes: '(max-width: 600px) 100vw, 34vw' })).join('')}</div>
 
 <section class="section reveal">
   <div class="container">

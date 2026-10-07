@@ -1,0 +1,1373 @@
+{
+ "avatar.png": {
+  "hash": "ad22b46a",
+  "w": 82,
+  "h": 82
+ },
+ "card-climatizacion-1200.webp": {
+  "hash": "5c9aa0bd",
+  "w": 1200,
+  "h": 675
+ },
+ "card-climatizacion-480.webp": {
+  "hash": "6cc55cee",
+  "w": 480,
+  "h": 270
+ },
+ "card-climatizacion-800.webp": {
+  "hash": "63d26e08",
+  "w": 800,
+  "h": 450
+ },
+ "card-climatizacion.webp": {
+  "hash": "8759e1a4",
+  "w": 1440,
+  "h": 810,
+  "variants": [
+   {
+    "file": "card-climatizacion-480.webp",
+    "w": 480
+   },
+   {
+    "file": "card-climatizacion-800.webp",
+    "w": 800
+   },
+   {
+    "file": "card-climatizacion-1200.webp",
+    "w": 1200
+   }
+  ]
+ },
+ "card-construccion-1200.webp": {
+  "hash": "8707f8d3",
+  "w": 1200,
+  "h": 900
+ },
+ "card-construccion-480.webp": {
+  "hash": "a3e1d84e",
+  "w": 480,
+  "h": 360
+ },
+ "card-construccion-800.webp": {
+  "hash": "cd08e0cf",
+  "w": 800,
+  "h": 600
+ },
+ "card-construccion.webp": {
+  "hash": "ad08efc9",
+  "w": 1440,
+  "h": 1080,
+  "variants": [
+   {
+    "file": "card-construccion-480.webp",
+    "w": 480
+   },
+   {
+    "file": "card-construccion-800.webp",
+    "w": 800
+   },
+   {
+    "file": "card-construccion-1200.webp",
+    "w": 1200
+   }
+  ]
+ },
+ "card-impermeabilizacion-1200.webp": {
+  "hash": "da22c58f",
+  "w": 1200,
+  "h": 1600
+ },
+ "card-impermeabilizacion-480.webp": {
+  "hash": "98ce398a",
+  "w": 480,
+  "h": 640
+ },
+ "card-impermeabilizacion-800.webp": {
+  "hash": "d975b263",
+  "w": 800,
+  "h": 1067
+ },
+ "card-impermeabilizacion.webp": {
+  "hash": "fa8f0f4e",
+  "w": 1440,
+  "h": 1920,
+  "variants": [
+   {
+    "file": "card-impermeabilizacion-480.webp",
+    "w": 480
+   },
+   {
+    "file": "card-impermeabilizacion-800.webp",
+    "w": 800
+   },
+   {
+    "file": "card-impermeabilizacion-1200.webp",
+    "w": 1200
+   }
+  ]
+ },
+ "card-mantenimiento-480.webp": {
+  "hash": "da07ab0a",
+  "w": 480,
+  "h": 640
+ },
+ "card-mantenimiento-800.webp": {
+  "hash": "582a4fe3",
+  "w": 800,
+  "h": 1067
+ },
+ "card-mantenimiento.webp": {
+  "hash": "f7147fa4",
+  "w": 960,
+  "h": 1280,
+  "variants": [
+   {
+    "file": "card-mantenimiento-480.webp",
+    "w": 480
+   },
+   {
+    "file": "card-mantenimiento-800.webp",
+    "w": 800
+   }
+  ]
+ },
+ "card-remod-corporativa-1200.webp": {
+  "hash": "0b7eb15c",
+  "w": 1200,
+  "h": 675
+ },
+ "card-remod-corporativa-480.webp": {
+  "hash": "5b04f0ae",
+  "w": 480,
+  "h": 270
+ },
+ "card-remod-corporativa-800.webp": {
+  "hash": "34622cb6",
+  "w": 800,
+  "h": 450
+ },
+ "card-remod-corporativa.webp": {
+  "hash": "8cc4f8d6",
+  "w": 1440,
+  "h": 810,
+  "variants": [
+   {
+    "file": "card-remod-corporativa-480.webp",
+    "w": 480
+   },
+   {
+    "file": "card-remod-corporativa-800.webp",
+    "w": 800
+   },
+   {
+    "file": "card-remod-corporativa-1200.webp",
+    "w": 1200
+   }
+  ]
+ },
+ "card-remod-hospitalaria-1200.webp": {
+  "hash": "994771f5",
+  "w": 1200,
+  "h": 675
+ },
+ "card-remod-hospitalaria-480.webp": {
+  "hash": "1a46da96",
+  "w": 480,
+  "h": 270
+ },
+ "card-remod-hospitalaria-800.webp": {
+  "hash": "53002b24",
+  "w": 800,
+  "h": 450
+ },
+ "card-remod-hospitalaria.webp": {
+  "hash": "903d482d",
+  "w": 1440,
+  "h": 810,
+  "variants": [
+   {
+    "file": "card-remod-hospitalaria-480.webp",
+    "w": 480
+   },
+   {
+    "file": "card-remod-hospitalaria-800.webp",
+    "w": 800
+   },
+   {
+    "file": "card-remod-hospitalaria-1200.webp",
+    "w": 1200
+   }
+  ]
+ },
+ "cta-bg-1200.webp": {
+  "hash": "cb669b21",
+  "w": 1200,
+  "h": 675
+ },
+ "cta-bg-480.webp": {
+  "hash": "54290089",
+  "w": 480,
+  "h": 270
+ },
+ "cta-bg-800.webp": {
+  "hash": "c6d72c6d",
+  "w": 800,
+  "h": 450
+ },
+ "cta-bg.webp": {
+  "hash": "dfbf5beb",
+  "w": 1440,
+  "h": 810,
+  "variants": [
+   {
+    "file": "cta-bg-480.webp",
+    "w": 480
+   },
+   {
+    "file": "cta-bg-800.webp",
+    "w": 800
+   },
+   {
+    "file": "cta-bg-1200.webp",
+    "w": 1200
+   }
+  ]
+ },
+ "deco-arrow.png": {
+  "hash": "72d97832",
+  "w": 800,
+  "h": 1422
+ },
+ "deco-hex.png": {
+  "hash": "40007165",
+  "w": 800,
+  "h": 717
+ },
+ "deco-pattern-l.png": {
+  "hash": "b5c7a5ca",
+  "w": 536,
+  "h": 302
+ },
+ "deco-pattern-r.png": {
+  "hash": "f86361c1",
+  "w": 536,
+  "h": 302
+ },
+ "divider-long.svg": {
+  "hash": "d95ac25e",
+  "w": 685,
+  "h": 5
+ },
+ "divider-short.svg": {
+  "hash": "5f63bfe8",
+  "w": 341,
+  "h": 5
+ },
+ "divider.svg": {
+  "hash": "fa670b15",
+  "w": 534,
+  "h": 5
+ },
+ "dot-a-w.svg": {
+  "hash": "b561bfa0",
+  "w": 17,
+  "h": 16
+ },
+ "dot-a.svg": {
+  "hash": "f9b9368c",
+  "w": 17,
+  "h": 16
+ },
+ "dot-active.svg": {
+  "hash": "ddc5b5aa",
+  "w": 16,
+  "h": 16
+ },
+ "dot-b-w.svg": {
+  "hash": "11f99b1b",
+  "w": 16,
+  "h": 16
+ },
+ "dot-b.svg": {
+  "hash": "d447beda",
+  "w": 16,
+  "h": 16
+ },
+ "estructuras-480.webp": {
+  "hash": "f7e5f49c",
+  "w": 480,
+  "h": 640
+ },
+ "estructuras.webp": {
+  "hash": "c792e0d1",
+  "w": 768,
+  "h": 1024,
+  "variants": [
+   {
+    "file": "estructuras-480.webp",
+    "w": 480
+   }
+  ]
+ },
+ "frase-mask.svg": {
+  "hash": "8e7ad114",
+  "w": 494,
+  "h": 584
+ },
+ "frase1-1200.webp": {
+  "hash": "01a3e205",
+  "w": 1200,
+  "h": 900
+ },
+ "frase1-480.webp": {
+  "hash": "e6a3118c",
+  "w": 480,
+  "h": 360
+ },
+ "frase1-800.webp": {
+  "hash": "ad412a39",
+  "w": 800,
+  "h": 600
+ },
+ "frase1.webp": {
+  "hash": "be61da07",
+  "w": 1440,
+  "h": 1080,
+  "variants": [
+   {
+    "file": "frase1-480.webp",
+    "w": 480
+   },
+   {
+    "file": "frase1-800.webp",
+    "w": 800
+   },
+   {
+    "file": "frase1-1200.webp",
+    "w": 1200
+   }
+  ]
+ },
+ "frase2.webp": {
+  "hash": "f34ccf8d",
+  "w": 436,
+  "h": 475
+ },
+ "frase3.webp": {
+  "hash": "dd8dbc3d",
+  "w": 436,
+  "h": 545
+ },
+ "hero-home-1200.webp": {
+  "hash": "9e7dd0f7",
+  "w": 1200,
+  "h": 900
+ },
+ "hero-home-480.webp": {
+  "hash": "c631419b",
+  "w": 480,
+  "h": 360
+ },
+ "hero-home-800.webp": {
+  "hash": "244430ce",
+  "w": 800,
+  "h": 600
+ },
+ "hero-home.webp": {
+  "hash": "b29f67c1",
+  "w": 1440,
+  "h": 1080,
+  "variants": [
+   {
+    "file": "hero-home-480.webp",
+    "w": 480
+   },
+   {
+    "file": "hero-home-800.webp",
+    "w": 800
+   },
+   {
+    "file": "hero-home-1200.webp",
+    "w": 1200
+   }
+  ]
+ },
+ "home-team-480.webp": {
+  "hash": "52e61f78",
+  "w": 480,
+  "h": 640
+ },
+ "home-team.webp": {
+  "hash": "1ed0dd99",
+  "w": 750,
+  "h": 1000,
+  "variants": [
+   {
+    "file": "home-team-480.webp",
+    "w": 480
+   }
+  ]
+ },
+ "hotel-strip1.webp": {
+  "hash": "6807cd52",
+  "w": 440,
+  "h": 224
+ },
+ "hotel-strip2.webp": {
+  "hash": "68e64e0b",
+  "w": 440,
+  "h": 224
+ },
+ "hotel-strip3.webp": {
+  "hash": "6263ddf1",
+  "w": 437,
+  "h": 224
+ },
+ "ico-armchair.svg": {
+  "hash": "8c0ce087",
+  "w": 85,
+  "h": 85
+ },
+ "ico-arrow-left-w.svg": {
+  "hash": "209fb289",
+  "w": 38,
+  "h": 38
+ },
+ "ico-arrow-left.svg": {
+  "hash": "9017279d",
+  "w": 38,
+  "h": 38
+ },
+ "ico-arrow-right-w.svg": {
+  "hash": "15f723f0",
+  "w": 32,
+  "h": 31
+ },
+ "ico-arrow-right.svg": {
+  "hash": "2d5b36f1",
+  "w": 32,
+  "h": 31
+ },
+ "ico-bed.svg": {
+  "hash": "10051eaf",
+  "w": 85,
+  "h": 85
+ },
+ "ico-building-white.svg": {
+  "hash": "ff51548f",
+  "w": 85,
+  "h": 85
+ },
+ "ico-building.svg": {
+  "hash": "a6d17f60",
+  "w": 85,
+  "h": 85
+ },
+ "ico-chevron-down.svg": {
+  "hash": "f179cfae",
+  "w": 24,
+  "h": 24
+ },
+ "ico-facebook.svg": {
+  "hash": "22481aa6",
+  "w": 24,
+  "h": 24
+ },
+ "ico-instagram-orange.svg": {
+  "hash": "02a1d03e",
+  "w": 114,
+  "h": 114
+ },
+ "ico-instagram.svg": {
+  "hash": "da60d7cf",
+  "w": 24,
+  "h": 24
+ },
+ "ico-marker.svg": {
+  "hash": "93131fed",
+  "w": 24,
+  "h": 24
+ },
+ "ico-phone.svg": {
+  "hash": "3a647d5e",
+  "w": 13,
+  "h": 13
+ },
+ "ico-phone2.svg": {
+  "hash": "e09a7d55",
+  "w": 13,
+  "h": 13
+ },
+ "ico-temperature.svg": {
+  "hash": "a4cfd6ab",
+  "w": 85,
+  "h": 85
+ },
+ "ico-tools.svg": {
+  "hash": "2d898c1e",
+  "w": 85,
+  "h": 85
+ },
+ "ico-usergroup.svg": {
+  "hash": "6938aa38",
+  "w": 85,
+  "h": 85
+ },
+ "line-blue.svg": {
+  "hash": "884f3465",
+  "w": 67,
+  "h": 10
+ },
+ "logo-192.webp": {
+  "hash": "694ed4d6",
+  "w": 192,
+  "h": 96
+ },
+ "logo-384.webp": {
+  "hash": "34024bd0",
+  "w": 384,
+  "h": 192
+ },
+ "logo.png": {
+  "hash": "bf66cc8f",
+  "w": 800,
+  "h": 399,
+  "variants": [
+   {
+    "file": "logo-192.webp",
+    "w": 192
+   },
+   {
+    "file": "logo-384.webp",
+    "w": 384
+   }
+  ]
+ },
+ "map-480.webp": {
+  "hash": "871517be",
+  "w": 480,
+  "h": 480
+ },
+ "map-800.webp": {
+  "hash": "db670abe",
+  "w": 800,
+  "h": 800
+ },
+ "map.webp": {
+  "hash": "be029152",
+  "w": 1024,
+  "h": 1024,
+  "variants": [
+   {
+    "file": "map-480.webp",
+    "w": 480
+   },
+   {
+    "file": "map-800.webp",
+    "w": 800
+   }
+  ]
+ },
+ "mask-a.svg": {
+  "hash": "5e24a6d8",
+  "w": 479,
+  "h": 245
+ },
+ "mask-b.svg": {
+  "hash": "387bc4c6",
+  "w": 479,
+  "h": 245
+ },
+ "menu-armchair.svg": {
+  "hash": "e05fe3a7",
+  "w": 25,
+  "h": 25
+ },
+ "menu-building-big.svg": {
+  "hash": "0e073baa",
+  "w": 103,
+  "h": 103
+ },
+ "menu-building.svg": {
+  "hash": "68fc7331",
+  "w": 25,
+  "h": 25
+ },
+ "menu-thermo.svg": {
+  "hash": "1c8090e0",
+  "w": 13,
+  "h": 25
+ },
+ "menu-vline.svg": {
+  "hash": "ef1b23fa",
+  "w": 534,
+  "h": 5
+ },
+ "nos-hero-1200.webp": {
+  "hash": "421c7ae2",
+  "w": 1200,
+  "h": 900
+ },
+ "nos-hero-480.webp": {
+  "hash": "63831070",
+  "w": 480,
+  "h": 360
+ },
+ "nos-hero-800.webp": {
+  "hash": "26d4d088",
+  "w": 800,
+  "h": 600
+ },
+ "nos-hero.webp": {
+  "hash": "b59c2a9a",
+  "w": 1440,
+  "h": 1080,
+  "variants": [
+   {
+    "file": "nos-hero-480.webp",
+    "w": 480
+   },
+   {
+    "file": "nos-hero-800.webp",
+    "w": 800
+   },
+   {
+    "file": "nos-hero-1200.webp",
+    "w": 1200
+   }
+  ]
+ },
+ "nos-mision-1200.webp": {
+  "hash": "3f4afa48",
+  "w": 1200,
+  "h": 900
+ },
+ "nos-mision-480.webp": {
+  "hash": "a0e37ffb",
+  "w": 480,
+  "h": 360
+ },
+ "nos-mision-800.webp": {
+  "hash": "629fe500",
+  "w": 800,
+  "h": 600
+ },
+ "nos-mision.webp": {
+  "hash": "40802e82",
+  "w": 1440,
+  "h": 1080,
+  "variants": [
+   {
+    "file": "nos-mision-480.webp",
+    "w": 480
+   },
+   {
+    "file": "nos-mision-800.webp",
+    "w": 800
+   },
+   {
+    "file": "nos-mision-1200.webp",
+    "w": 1200
+   }
+  ]
+ },
+ "nos-strip1-1200.webp": {
+  "hash": "84aeb7c7",
+  "w": 1200,
+  "h": 675
+ },
+ "nos-strip1-480.webp": {
+  "hash": "acb13254",
+  "w": 480,
+  "h": 270
+ },
+ "nos-strip1-800.webp": {
+  "hash": "dc406420",
+  "w": 800,
+  "h": 450
+ },
+ "nos-strip1.webp": {
+  "hash": "d58f1385",
+  "w": 1440,
+  "h": 810,
+  "variants": [
+   {
+    "file": "nos-strip1-480.webp",
+    "w": 480
+   },
+   {
+    "file": "nos-strip1-800.webp",
+    "w": 800
+   },
+   {
+    "file": "nos-strip1-1200.webp",
+    "w": 1200
+   }
+  ]
+ },
+ "nos-strip2-1200.webp": {
+  "hash": "81d69d7f",
+  "w": 1200,
+  "h": 675
+ },
+ "nos-strip2-480.webp": {
+  "hash": "8c849dad",
+  "w": 480,
+  "h": 270
+ },
+ "nos-strip2-800.webp": {
+  "hash": "380fd08a",
+  "w": 800,
+  "h": 450
+ },
+ "nos-strip2.webp": {
+  "hash": "c5f528a7",
+  "w": 1440,
+  "h": 810,
+  "variants": [
+   {
+    "file": "nos-strip2-480.webp",
+    "w": 480
+   },
+   {
+    "file": "nos-strip2-800.webp",
+    "w": 800
+   },
+   {
+    "file": "nos-strip2-1200.webp",
+    "w": 1200
+   }
+  ]
+ },
+ "nos-strip3-1200.webp": {
+  "hash": "c4468102",
+  "w": 1200,
+  "h": 675
+ },
+ "nos-strip3-480.webp": {
+  "hash": "7f1f4fd3",
+  "w": 480,
+  "h": 270
+ },
+ "nos-strip3-800.webp": {
+  "hash": "989c5cee",
+  "w": 800,
+  "h": 450
+ },
+ "nos-strip3.webp": {
+  "hash": "1bb4dcc7",
+  "w": 1440,
+  "h": 810,
+  "variants": [
+   {
+    "file": "nos-strip3-480.webp",
+    "w": 480
+   },
+   {
+    "file": "nos-strip3-800.webp",
+    "w": 800
+   },
+   {
+    "file": "nos-strip3-1200.webp",
+    "w": 1200
+   }
+  ]
+ },
+ "nos-vision-1200.webp": {
+  "hash": "4129d0fe",
+  "w": 1200,
+  "h": 900
+ },
+ "nos-vision-480.webp": {
+  "hash": "8feab2b4",
+  "w": 480,
+  "h": 360
+ },
+ "nos-vision-800.webp": {
+  "hash": "2133b32d",
+  "w": 800,
+  "h": 600
+ },
+ "nos-vision.webp": {
+  "hash": "fb8f6cbc",
+  "w": 1440,
+  "h": 1080,
+  "variants": [
+   {
+    "file": "nos-vision-480.webp",
+    "w": 480
+   },
+   {
+    "file": "nos-vision-800.webp",
+    "w": 800
+   },
+   {
+    "file": "nos-vision-1200.webp",
+    "w": 1200
+   }
+  ]
+ },
+ "obras-hero-1200.webp": {
+  "hash": "d48489aa",
+  "w": 1200,
+  "h": 900
+ },
+ "obras-hero-480.webp": {
+  "hash": "67331248",
+  "w": 480,
+  "h": 360
+ },
+ "obras-hero-800.webp": {
+  "hash": "25cccd8d",
+  "w": 800,
+  "h": 600
+ },
+ "obras-hero.webp": {
+  "hash": "7e73f6a1",
+  "w": 1440,
+  "h": 1080,
+  "variants": [
+   {
+    "file": "obras-hero-480.webp",
+    "w": 480
+   },
+   {
+    "file": "obras-hero-800.webp",
+    "w": 800
+   },
+   {
+    "file": "obras-hero-1200.webp",
+    "w": 1200
+   }
+  ]
+ },
+ "obras-impermeabilizacion-1200.webp": {
+  "hash": "48999f16",
+  "w": 1200,
+  "h": 900
+ },
+ "obras-impermeabilizacion-480.webp": {
+  "hash": "031cc344",
+  "w": 480,
+  "h": 360
+ },
+ "obras-impermeabilizacion-800.webp": {
+  "hash": "42510a87",
+  "w": 800,
+  "h": 600
+ },
+ "obras-impermeabilizacion.webp": {
+  "hash": "f7159109",
+  "w": 1440,
+  "h": 1080,
+  "variants": [
+   {
+    "file": "obras-impermeabilizacion-480.webp",
+    "w": 480
+   },
+   {
+    "file": "obras-impermeabilizacion-800.webp",
+    "w": 800
+   },
+   {
+    "file": "obras-impermeabilizacion-1200.webp",
+    "w": 1200
+   }
+  ]
+ },
+ "obras-strip1-1200.webp": {
+  "hash": "01a3e205",
+  "w": 1200,
+  "h": 900
+ },
+ "obras-strip1-480.webp": {
+  "hash": "e6a3118c",
+  "w": 480,
+  "h": 360
+ },
+ "obras-strip1-800.webp": {
+  "hash": "ad412a39",
+  "w": 800,
+  "h": 600
+ },
+ "obras-strip1.webp": {
+  "hash": "be61da07",
+  "w": 1440,
+  "h": 1080,
+  "variants": [
+   {
+    "file": "obras-strip1-480.webp",
+    "w": 480
+   },
+   {
+    "file": "obras-strip1-800.webp",
+    "w": 800
+   },
+   {
+    "file": "obras-strip1-1200.webp",
+    "w": 1200
+   }
+  ]
+ },
+ "obras-strip2-1200.webp": {
+  "hash": "8707f8d3",
+  "w": 1200,
+  "h": 900
+ },
+ "obras-strip2-480.webp": {
+  "hash": "a3e1d84e",
+  "w": 480,
+  "h": 360
+ },
+ "obras-strip2-800.webp": {
+  "hash": "cd08e0cf",
+  "w": 800,
+  "h": 600
+ },
+ "obras-strip2.webp": {
+  "hash": "ad08efc9",
+  "w": 1440,
+  "h": 1080,
+  "variants": [
+   {
+    "file": "obras-strip2-480.webp",
+    "w": 480
+   },
+   {
+    "file": "obras-strip2-800.webp",
+    "w": 800
+   },
+   {
+    "file": "obras-strip2-1200.webp",
+    "w": 1200
+   }
+  ]
+ },
+ "obras-strip3-1200.webp": {
+  "hash": "421c7ae2",
+  "w": 1200,
+  "h": 900
+ },
+ "obras-strip3-480.webp": {
+  "hash": "63831070",
+  "w": 480,
+  "h": 360
+ },
+ "obras-strip3-800.webp": {
+  "hash": "26d4d088",
+  "w": 800,
+  "h": 600
+ },
+ "obras-strip3.webp": {
+  "hash": "b59c2a9a",
+  "w": 1440,
+  "h": 1080,
+  "variants": [
+   {
+    "file": "obras-strip3-480.webp",
+    "w": 480
+   },
+   {
+    "file": "obras-strip3-800.webp",
+    "w": 800
+   },
+   {
+    "file": "obras-strip3-1200.webp",
+    "w": 1200
+   }
+  ]
+ },
+ "partner-1.svg": {
+  "hash": "105fa017",
+  "w": 73,
+  "h": 64
+ },
+ "partner-2.svg": {
+  "hash": "30dd0091",
+  "w": 156,
+  "h": 64
+ },
+ "partner-3.svg": {
+  "hash": "50ad782a",
+  "w": 133,
+  "h": 64
+ },
+ "partner-4.svg": {
+  "hash": "f45e01bc",
+  "w": 79,
+  "h": 64
+ },
+ "partner-4b.svg": {
+  "hash": "f45e01bc",
+  "w": 79,
+  "h": 64
+ },
+ "partner-5.svg": {
+  "hash": "4cf1ccb4",
+  "w": 135,
+  "h": 64
+ },
+ "partner-5b.svg": {
+  "hash": "4cf1ccb4",
+  "w": 135,
+  "h": 64
+ },
+ "post-climatizacion-1200.webp": {
+  "hash": "afbf12be",
+  "w": 1200,
+  "h": 1500
+ },
+ "post-climatizacion-480.webp": {
+  "hash": "98ccaec1",
+  "w": 480,
+  "h": 600
+ },
+ "post-climatizacion-800.webp": {
+  "hash": "862cb939",
+  "w": 800,
+  "h": 1000
+ },
+ "post-climatizacion.webp": {
+  "hash": "e0f306be",
+  "w": 1440,
+  "h": 1800,
+  "variants": [
+   {
+    "file": "post-climatizacion-480.webp",
+    "w": 480
+   },
+   {
+    "file": "post-climatizacion-800.webp",
+    "w": 800
+   },
+   {
+    "file": "post-climatizacion-1200.webp",
+    "w": 1200
+   }
+  ]
+ },
+ "post-clinica-1200.webp": {
+  "hash": "297881ce",
+  "w": 1200,
+  "h": 1500
+ },
+ "post-clinica-480.webp": {
+  "hash": "96d0e8eb",
+  "w": 480,
+  "h": 600
+ },
+ "post-clinica-800.webp": {
+  "hash": "64c3ae6c",
+  "w": 800,
+  "h": 1000
+ },
+ "post-clinica.webp": {
+  "hash": "87a7991e",
+  "w": 1440,
+  "h": 1800,
+  "variants": [
+   {
+    "file": "post-clinica-480.webp",
+    "w": 480
+   },
+   {
+    "file": "post-clinica-800.webp",
+    "w": 800
+   },
+   {
+    "file": "post-clinica-1200.webp",
+    "w": 1200
+   }
+  ]
+ },
+ "post-humedad-480.webp": {
+  "hash": "adebbc33",
+  "w": 480,
+  "h": 541
+ },
+ "post-humedad.webp": {
+  "hash": "240909f0",
+  "w": 605,
+  "h": 682,
+  "variants": [
+   {
+    "file": "post-humedad-480.webp",
+    "w": 480
+   }
+  ]
+ },
+ "post-ingenieria-1200.webp": {
+  "hash": "3e07918a",
+  "w": 1200,
+  "h": 1500
+ },
+ "post-ingenieria-480.webp": {
+  "hash": "00cbbfa8",
+  "w": 480,
+  "h": 600
+ },
+ "post-ingenieria-800.webp": {
+  "hash": "a22b8684",
+  "w": 800,
+  "h": 1000
+ },
+ "post-ingenieria.webp": {
+  "hash": "2a432391",
+  "w": 1440,
+  "h": 1800,
+  "variants": [
+   {
+    "file": "post-ingenieria-480.webp",
+    "w": 480
+   },
+   {
+    "file": "post-ingenieria-800.webp",
+    "w": 800
+   },
+   {
+    "file": "post-ingenieria-1200.webp",
+    "w": 1200
+   }
+  ]
+ },
+ "post-mayor-error-1200.webp": {
+  "hash": "4c92945d",
+  "w": 1200,
+  "h": 1500
+ },
+ "post-mayor-error-480.webp": {
+  "hash": "6eeda190",
+  "w": 480,
+  "h": 600
+ },
+ "post-mayor-error-800.webp": {
+  "hash": "b877abab",
+  "w": 800,
+  "h": 1000
+ },
+ "post-mayor-error.webp": {
+  "hash": "e750951c",
+  "w": 1440,
+  "h": 1800,
+  "variants": [
+   {
+    "file": "post-mayor-error-480.webp",
+    "w": 480
+   },
+   {
+    "file": "post-mayor-error-800.webp",
+    "w": 800
+   },
+   {
+    "file": "post-mayor-error-1200.webp",
+    "w": 1200
+   }
+  ]
+ },
+ "post-pisos.webp": {
+  "hash": "71a140b3",
+  "w": 517,
+  "h": 376
+ },
+ "post-precision-1200.webp": {
+  "hash": "42997c4b",
+  "w": 1200,
+  "h": 1500
+ },
+ "post-precision-480.webp": {
+  "hash": "b1e500d6",
+  "w": 480,
+  "h": 600
+ },
+ "post-precision-800.webp": {
+  "hash": "2e1dff0f",
+  "w": 800,
+  "h": 1000
+ },
+ "post-precision.webp": {
+  "hash": "c3fadc1f",
+  "w": 1440,
+  "h": 1800,
+  "variants": [
+   {
+    "file": "post-precision-480.webp",
+    "w": 480
+   },
+   {
+    "file": "post-precision-800.webp",
+    "w": 800
+   },
+   {
+    "file": "post-precision-1200.webp",
+    "w": 1200
+   }
+  ]
+ },
+ "proj-centralizacion-1200.webp": {
+  "hash": "986ff7af",
+  "w": 1200,
+  "h": 1600
+ },
+ "proj-centralizacion-480.webp": {
+  "hash": "1177c43c",
+  "w": 480,
+  "h": 640
+ },
+ "proj-centralizacion-800.webp": {
+  "hash": "7d24d20a",
+  "w": 800,
+  "h": 1067
+ },
+ "proj-centralizacion.webp": {
+  "hash": "18680e28",
+  "w": 1440,
+  "h": 1920,
+  "variants": [
+   {
+    "file": "proj-centralizacion-480.webp",
+    "w": 480
+   },
+   {
+    "file": "proj-centralizacion-800.webp",
+    "w": 800
+   },
+   {
+    "file": "proj-centralizacion-1200.webp",
+    "w": 1200
+   }
+  ]
+ },
+ "proj-refrigeracion-1200.webp": {
+  "hash": "fa2ac949",
+  "w": 1200,
+  "h": 675
+ },
+ "proj-refrigeracion-480.webp": {
+  "hash": "a3c5ca4d",
+  "w": 480,
+  "h": 270
+ },
+ "proj-refrigeracion-800.webp": {
+  "hash": "f4c053eb",
+  "w": 800,
+  "h": 450
+ },
+ "proj-refrigeracion.webp": {
+  "hash": "40915cba",
+  "w": 1440,
+  "h": 810,
+  "variants": [
+   {
+    "file": "proj-refrigeracion-480.webp",
+    "w": 480
+   },
+   {
+    "file": "proj-refrigeracion-800.webp",
+    "w": 800
+   },
+   {
+    "file": "proj-refrigeracion-1200.webp",
+    "w": 1200
+   }
+  ]
+ },
+ "remod-corp-1200.webp": {
+  "hash": "c423f426",
+  "w": 1200,
+  "h": 675
+ },
+ "remod-corp-480.webp": {
+  "hash": "66415034",
+  "w": 480,
+  "h": 270
+ },
+ "remod-corp-800.webp": {
+  "hash": "c1b4aa60",
+  "w": 800,
+  "h": 450
+ },
+ "remod-corp.webp": {
+  "hash": "12724d32",
+  "w": 1440,
+  "h": 810,
+  "variants": [
+   {
+    "file": "remod-corp-480.webp",
+    "w": 480
+   },
+   {
+    "file": "remod-corp-800.webp",
+    "w": 800
+   },
+   {
+    "file": "remod-corp-1200.webp",
+    "w": 1200
+   }
+  ]
+ },
+ "stars-a.svg": {
+  "hash": "e039bec4",
+  "w": 99,
+  "h": 16
+ },
+ "stars-b.svg": {
+  "hash": "9360d603",
+  "w": 99,
+  "h": 16
+ },
+ "stars-c.svg": {
+  "hash": "9ca31773",
+  "w": 99,
+  "h": 16
+ },
+ "svc-adecuacion-areas-comunes.webp": {
+  "hash": "10283af2",
+  "w": 512,
+  "h": 425
+ },
+ "svc-auditorias-tecnicas.webp": {
+  "hash": "fd66f8fa",
+  "w": 528,
+  "h": 414
+ },
+ "svc-automatizacion-eficiencia.webp": {
+  "hash": "3484086a",
+  "w": 512,
+  "h": 425
+ },
+ "svc-climatizacion-corporativa.webp": {
+  "hash": "031b94d6",
+  "w": 516,
+  "h": 402
+ },
+ "svc-climatizacion-hospitalaria.webp": {
+  "hash": "c3474a65",
+  "w": 514,
+  "h": 416
+ },
+ "svc-climatizacion-hotelera.webp": {
+  "hash": "1e509856",
+  "w": 515,
+  "h": 415
+ },
+ "svc-mantenimiento-climatizacion.webp": {
+  "hash": "b44f894b",
+  "w": 515,
+  "h": 416
+ },
+ "svc-mantenimiento-hotelero.webp": {
+  "hash": "07fe2c6c",
+  "w": 529,
+  "h": 416
+ },
+ "svc-planes-mantenimiento.webp": {
+  "hash": "60431dda",
+  "w": 483,
+  "h": 399
+ },
+ "svc-remodelacion-areas-comunes.webp": {
+  "hash": "156acc53",
+  "w": 525,
+  "h": 412
+ }
+}

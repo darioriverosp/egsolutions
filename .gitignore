@@ -3,6 +3,7 @@
 *.tmp
 .netlify
 .netlify/
+lighthouse*.json
 node_modules/
 src/figma-export/
 src/raw/
