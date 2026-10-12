@@ -1,0 +1,82 @@
+{
+ "adecuacion-areas-comunes": {
+  "lead": 456,
+  "det": 630,
+  "form": 493
+ },
+ "auditorias-tecnicas": {
+  "lead": 497,
+  "det": 624,
+  "form": 497
+ },
+ "automatizacion-eficiencia": {
+  "lead": 454,
+  "det": 611,
+  "form": 506
+ },
+ "centralizacion-operativa": {
+  "lead": 488,
+  "det": 619,
+  "form": 495
+ },
+ "climatizacion-corporativa": {
+  "lead": 454,
+  "det": 603,
+  "form": 513
+ },
+ "climatizacion-hospitalaria": {
+  "lead": 430,
+  "det": 605,
+  "form": 513
+ },
+ "climatizacion-hotelera": {
+  "lead": 438,
+  "det": 522,
+  "form": 579
+ },
+ "estructuras-metalicas": {
+  "lead": 421,
+  "det": 625,
+  "form": 493
+ },
+ "impermeabilizacion": {
+  "lead": 441,
+  "det": 541,
+  "form": 578
+ },
+ "mantenimiento-climatizacion": {
+  "lead": 443,
+  "det": 595,
+  "form": 513
+ },
+ "mantenimiento-hotelero": {
+  "lead": 451,
+  "det": 530,
+  "form": 577
+ },
+ "planes-mantenimiento": {
+  "lead": 472,
+  "det": 606,
+  "form": 512
+ },
+ "refrigeracion-comercial": {
+  "lead": 436,
+  "det": 621,
+  "form": 513
+ },
+ "remodelacion-areas-comunes": {
+  "lead": 450,
+  "det": 523,
+  "form": 578
+ },
+ "remodelacion-corporativa": {
+  "lead": 458,
+  "det": 622,
+  "form": 493
+ },
+ "remodelacion-hospitalaria": {
+  "lead": 433,
+  "det": 602,
+  "form": 514
+ }
+}

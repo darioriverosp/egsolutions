@@ -7,6 +7,8 @@ import crypto from 'node:crypto';
 import CleanCSS from 'clean-css';
 import { site, categories, services, homeCards, whyUs, projectCards, articles, testimonials } from './data.mjs';
 import { bodies } from './articles-bodies.mjs';
+import { svcTitles } from './svc-titles.mjs';
+import { articleRelated, relatedCardTitle } from './articles-related.mjs';
 
 // Texto íntegro y recorte de la foto principal de cada artículo
 for (const a of articles) {
@@ -23,6 +25,7 @@ const ver = (f) => crypto.createHash('md5').update(fs.readFileSync(path.join(OUT
 // (dimensiones, huella y variantes responsivas; se genera con `node src/variants.mjs`).
 const minCss = new CleanCSS({ level: 1 }).minify(fs.readFileSync(path.join(OUT, 'assets/css/styles.css'), 'utf8')).styles;
 const fontsCss = fs.readFileSync('src/fonts.css', 'utf8').trim();
+const svcLayout = JSON.parse(fs.readFileSync(new URL('./svc-layout.json', import.meta.url), 'utf8'));
 const manifest = JSON.parse(fs.readFileSync('src/img-manifest.json', 'utf8'));
 let lastPriority = null; // imagen principal (LCP) de la página en construcción
 
@@ -156,15 +159,14 @@ function footer() {
   const sedes = site.sedes
     .map(
       (s) => `<div class="sede">
-        ${img('ico-marker.svg', '', 'class="sede__pin"')}
         <span class="sede__name">${esc(s.nombre)}</span>
         <span class="sede__addr">${plain(s.direccion)}</span>
-        <span class="sede__tel">${img('ico-phone2.svg', '')} ${s.telefonos.map((t) => `<a href="tel:${t.replace(/[^\d+]/g, '')}">${t}</a>`).join(' / ')}</span>
+        <span class="sede__tel">${s.telefonos.map((t) => `<a href="tel:${t.replace(/[^\d+]/g, '')}">${t}</a>`).join(' / ')}</span>
       </div>`
     )
     .join('');
   const menuCols = categories
-    .map((c) => `<li><a href="/servicios/${c.slug}.html">${esc(c.menuName)}</a></li>`)
+    .map((c) => `<li><a href="/servicios/${c.slug}.html">${esc(c.footerName || c.menuName)}</a></li>`)
     .join('');
   return `<footer class="site-footer">
   <div class="container">
@@ -236,9 +238,9 @@ ${footer()}
 }
 
 // ── Piezas reutilizables ─────────────────────────────────────────
-function heroSection({ bg, icon, title, subtitle, btnLabel, btnHref, btnVariant = 'white', nowrap = false }) {
+function heroSection({ bg, icon, title, subtitle, btnLabel, btnHref, btnVariant = 'white', nowrap = false, mod = '' }) {
   // Sin animación "reveal": el hero es la imagen principal (LCP) y debe verse desde el primer pintado
-  return `<section class="hero${nowrap ? ' hero--nowrap' : ''}">
+  return `<section class="hero${nowrap ? ' hero--nowrap' : ''}${mod ? ' ' + mod : ''}">
   ${img(bg, '', 'class="hero__bg"', { priority: true, sizes: '100vw' })}
   <div class="hero__content">
     ${icon ? img(icon, '', 'class="hero__icon"') : ''}
@@ -301,10 +303,8 @@ function testimonialsSection({ title, sub, cta }) {
       ${testimonials
         .map(
           (t) => `<div class="quote">
-            <div class="quote__head">
-              ${img('avatar.png', '', 'class="avatar"')}
-              <span class="quote__name">${esc(t.name)}</span>
-            </div>
+            ${img('avatar.png', '', 'class="avatar"')}
+            <span class="quote__name">${esc(t.name)}</span>
             ${img(t.stars, '5 estrellas', 'class="quote__stars"')}
             <p class="quote__text">${esc(t.text)}</p>
           </div>`
@@ -318,7 +318,7 @@ function testimonialsSection({ title, sub, cta }) {
 
 // Adornos del diseño (formas naranjas y patrón gris). Solo en escritorio.
 function deco(kind, style = '') {
-  const src = { shape: 'deco-hex.png', 'pat-l': 'deco-pattern-l.png', 'pat-r': 'deco-pattern-r.png' }[kind];
+  const src = { shape: 'deco-hex.png', 'pat-l': 'deco-pattern-l.png', 'pat-r': 'deco-pattern-r.png', pointer: 'deco-pointer.png', chevrons: 'deco-chevrons.png' }[kind];
   return `<img class="deco deco--${kind}" src="/assets/img/${src}" alt="" aria-hidden="true" loading="lazy" decoding="async" style="${style}">`;
 }
 
@@ -394,12 +394,12 @@ function ctaPhotoSection() {
   </section>`;
 }
 
-function svcFooterCta(svcName) {
-  return `<section class="section reveal">
+function svcFooterCta(svcName, cat, mod = '') {
+  return `<section class="section svc-cta ${mod} reveal">
     <div class="container contact-split">
       <div class="contact-split__text">
-        <h2 class="h-slab">¿Necesitas una empresa constructora y de ingeniería? <span class="o">Contáctanos ahora.</span></h2>
-        <p class="body">En <strong>EG SOLUTIONS C.A.</strong> estamos listos para evaluar tu requerimiento sin compromiso. <strong>Déjanos tus datos y un ingeniero te responderá en corto plazo.</strong></p>
+        <h2 class="h-slab">${cat ? md(cat.ctaTitle) : '¿Necesitas una empresa constructora y de ingeniería? <span class="o">Contáctanos ahora.</span>'}</h2>
+        <p class="body">${cat ? md(cat.ctaText) : 'En <strong>EG SOLUTIONS C.A.</strong> estamos listos para evaluar tu requerimiento sin compromiso. <strong>Déjanos tus datos y un ingeniero te responderá en corto plazo.</strong>'}</p>
         <div class="sedes" style="margin-top:8px">
           ${site.sedes
             .map(
@@ -435,6 +435,7 @@ function cardsCarousel(items, cardFn) {
     <button type="button" class="carousel__btn carousel__btn--prev" data-prev aria-label="Anterior">${img('ico-arrow-left.svg', '')}</button>
     <div class="cards-carousel__viewport"><div class="cards-carousel__track" data-track>${items.map(cardFn).join('')}</div></div>
     <button type="button" class="carousel__btn carousel__btn--next" data-next aria-label="Siguiente">${img('ico-arrow-right.svg', '')}</button>
+    ${items.length > 4 ? `<div class="carousel__dots">${Array.from({ length: items.length - 3 }, (_, i) => `<button type="button" class="carousel__dot" data-dot ${i === 0 ? 'aria-current="true"' : ''} aria-label="Grupo ${i + 1}"></button>`).join('')}</div>` : ''}
   </div>`;
 }
 
@@ -485,15 +486,16 @@ ${heroSection({
   ${deco('pat-r', 'right:-154px;top:-37px;width:536px')}
   ${deco('pat-l', 'left:-267px;bottom:40px;width:536px')}
   <div class="container">
-    <p class="years"><strong>11 años de trayectoria</strong> ejecutando ingeniería con alto nivel de profesionalismo.</p>
+    <p class="years"><strong>11 años de trayectoria</strong><br> ejecutando ingeniería con alto nivel de profesionalismo.</p>
     ${iconsRow(true)}
+    <div class="years__cta">${btn('Conoce nuestros proyectos más destacados', '/soluciones.html', 'orange2', 'btn--wide')}</div>
   </div>
 </section>
 
-<section class="section reveal">
+<section class="section home-cards reveal">
   <div class="container">
     <div class="section__head">
-      <h2 class="h-section">Soluciones diseñadas para que <span class="o">tu empresa nunca se detenga</span></h2>
+      <h2 class="h-section">Soluciones diseñadas para que la <br>operatividad de <span class="o">tu empresa nunca se detenga</span></h2>
     </div>
     ${cardsGrid(homeCards)}
     <div class="cards-cta">${btn('Conoce todos nuestros servicios', '/soluciones.html', 'orange2')}</div>
@@ -502,9 +504,9 @@ ${heroSection({
 
 ${partnersStrip('Referentes de nuestras soluciones y servicios')}
 
-<section class="section section--orange reveal">
+<section class="section section--orange why-section reveal">
   <div class="container">
-    <div class="section__head"><h2 class="h-slab" style="color:#fff">¿Por qué somos el único aliado de ingeniería que tu infraestructura necesita?</h2></div>
+    <div class="section__head"><h2 class="h-slab" style="color:#fff">¿Por qué somos el único aliado de ingeniería <br>que tu infraestructura necesita?</h2></div>
     <div class="why">
       ${whyUs
         .map(
@@ -527,7 +529,7 @@ ${partnersStrip('Referentes de nuestras soluciones y servicios')}
   </div>
 </section>
 
-${testimonialsSection({ title: 'Opiniones de nuestros clientes', sub: 'No solo ejecutamos proyectos; construimos alianzas basadas en la confianza y el rigor técnico. Conoce la experiencia de quienes ya centralizaron su gestión operativa con nosotros, {o}clientes 100% satisfechos{/o}', cta: { label: 'Contáctanos', href: '/contacto.html' } })}
+${testimonialsSection({ title: 'Opiniones de nuestros clientes', sub: 'No solo ejecutamos proyectos; construimos alianzas basadas en la confianza y el rigor técnico.\nConoce la experiencia de quienes ya centralizaron su gestión operativa con nosotros,\n**{o}clientes 100% satisfechos{/o}**', cta: { label: 'Contáctanos', href: '/contacto.html' } })}
 
 ${readySection()}
 ${ctaPhotoSection()}
@@ -541,42 +543,45 @@ function buildCategory(cat) {
   const zigzag = subs
     .map(
       (s, i) => `<div class="zz ${i % 2 ? 'zz--rev' : ''}">
-        ${img(s.img, s.title, 'class="zz__photo"')}
+        <a class="zz__media" href="/servicios/${s.slug}.html" tabindex="-1" aria-hidden="true">${img(s.img, s.title, 'class="zz__photo"')}</a>
         <div class="zz__body">
-          <div class="zz__bar"><h3>${plain(s.title)}</h3></div>
+          <div class="zz__bar${cat.barDark ? ' zz__bar--dark' : ''}"><h3><a href="/servicios/${s.slug}.html">${plain(s.zzTitle || s.title)}</a></h3></div>
           <p class="zz__text">${esc(s.summary)}</p>
-          <a class="zz__more" href="/servicios/${s.slug}.html">Ver detalles del servicio →</a>
         </div>
       </div>`
     )
     .join('');
 
   const body = `
-${heroSection({ bg: cat.hero, title: cat.title, subtitle: cat.subtitle, btnLabel: 'Contáctanos', btnHref: '/contacto.html' })}
+${heroSection({ bg: cat.hero, icon: cat.icon, title: cat.title, subtitle: cat.subtitle, btnLabel: 'Contáctanos', btnHref: '/contacto.html', mod: 'hero--cat' })}
 
-<section class="section reveal">
+<section class="section cat-intro reveal">
   <div class="container">
-    <div class="section__head">
-      <h2 class="h-section">${md(cat.h2)}</h2>
-      <div class="lead center">${paragraphs(cat.intro)}</div>
-      ${btn(cat.introBtn, '/contacto.html', 'dark')}
-    </div>
+    <h2 class="h-section center">${md(cat.h2)}</h2>
+    <span class="divider"></span>
+    <div class="lead center" style="max-width:${cat.introWidth || 700}px">${paragraphs(cat.intro)}</div>
+    ${btn(cat.introBtn, '/contacto.html', 'dark')}
   </div>
 </section>
 
 <div class="strip reveal">${cat.strip.map((i) => img(i, '', '', { sizes: '(max-width: 600px) 100vw, 34vw' })).join('')}</div>
 
-<section class="section reveal">
+<section class="section section--deco cat-zz reveal">
+  ${deco('pointer', 'left:-33px;top:85px;width:240px')}
+  ${deco('shape', 'right:-121px;top:44px;width:400px;transform:scaleX(-1)')}
+  ${deco('pat-l', 'left:-300px;top:700px;width:536px;opacity:.58')}
+  ${deco('pat-r', 'right:-300px;bottom:300px;width:536px;opacity:.58')}
   <div class="container">
-    <div class="section__head"><h2 class="h-section">${md(cat.sectionTitle)}</h2></div>
+    <h2 class="h-section center cat-zz__title">${md(cat.sectionTitle)}</h2>
     <div class="zigzag">${zigzag}</div>
   </div>
 </section>
 
-<section class="section section--dark reveal">
+<section class="section section--dark cat-results reveal">
   <div class="container">
     <div class="section__head">
-      <h2 class="h-slab on-dark">${esc(cat.resultsTitle)}</h2>
+      <h2 class="h-slab on-dark">${md(cat.resultsTitle)}</h2>
+      <span class="divider"></span>
       <p class="lead on-dark">${esc(cat.resultsSub)}</p>
     </div>
     <div class="testimonials">
@@ -584,7 +589,8 @@ ${heroSection({ bg: cat.hero, title: cat.title, subtitle: cat.subtitle, btnLabel
         .slice(0, 6)
         .map(
           (t) => `<div class="quote">
-            <div class="quote__head">${img('avatar.png', '', 'class="avatar"')}<span class="quote__name">${esc(t.name)}</span></div>
+            ${img('avatar.png', '', 'class="avatar"')}
+            <span class="quote__name">${esc(t.name)}</span>
             ${img(t.stars, '5 estrellas', 'class="quote__stars"')}
             <p class="quote__text">${esc(t.text)}</p>
           </div>`
@@ -593,8 +599,7 @@ ${heroSection({ bg: cat.hero, title: cat.title, subtitle: cat.subtitle, btnLabel
     </div>
   </div>
 </section>
-
-${svcFooterCta(cat.name)}
+${svcFooterCta(cat.name, cat, 'svc-cta--cat')}
 `;
   write(`servicios/${cat.slug}.html`, page({ title: cat.name, description: cat.subtitle, active: 'servicios', body }));
 }
@@ -605,37 +610,38 @@ function buildService(svc) {
   const bullets = svc.bullets
     .map(([label, text]) => `<li><strong>${esc(label)}</strong> ${esc(text)}</li>`)
     .join('');
-  const related = services.filter((s) => s.cat === svc.cat && s.slug !== svc.slug).slice(0, 3);
+  // Galería: la foto del servicio y las de los demás servicios de su categoría
+  const gallery = [svc.img, ...services.filter((s) => s.cat === svc.cat && s.slug !== svc.slug).map((s) => s.img)];
   const body = `
-<section class="section reveal">
-  <div class="container svc-top">
-    <div class="svc-top__text">
-      <h1>${plain(svc.pageTitle || svc.title)}</h1>
-      <div class="lead">${paragraphs(svc.intro)}</div>
-      <h2>Cotiza con nosotros</h2>
+<section class="section section--deco svc-page reveal"${svcLayout[svc.slug] ? ` style="--lead:${svcLayout[svc.slug].lead}px;--det:${svcLayout[svc.slug].det}px;--form:${svcLayout[svc.slug].form}px"` : ''}>
+  ${deco('pointer', 'left:-118px;top:79px;width:197px')}
+  ${deco('pointer', 'right:-123px;top:976px;width:213px;transform:scaleX(-1)')}
+  <div class="container">
+    <div class="svc-top">
+      <div class="svc-top__text">
+        <h1>${plain(svcTitles[svc.slug] || svc.pageTitle || svc.title)}</h1>
+        <div class="lead">${paragraphs(svc.intro)}</div>
+        <h2>Cotiza con nosotros</h2>
+        ${btn('Nuestro WhatsApp', waLink(svc.title), 'green')}
+      </div>
+      ${carousel(gallery, { id: `galeria-${svc.slug}` })}
+    </div>
+    <div class="details">
+      <div class="details__text">
+        <h2 class="h-section">Detalles del Servicio</h2>
+        <p>${esc(svc.details)}</p>
+        <ul>${bullets}</ul>
+      </div>
       ${leadForm({ white: false, btnLabel: 'Enviar' })}
     </div>
-    ${img(svc.img, svc.title, 'class="zz__photo" style="width:100%;height:auto;aspect-ratio:578/471"')}
   </div>
 </section>
 
-<section class="section section--gray reveal">
-  <div class="container details">
-    <div class="details__text">
-      <h2 class="h-section">Detalles del Servicio</h2>
-      <p>${esc(svc.details)}</p>
-      <ul>${bullets}</ul>
-    </div>
-    <div>
-      ${btn('Nuestro WhatsApp', waLink(svc.title), 'green', 'btn--wide')}
-    </div>
-  </div>
-</section>
-
-<section class="section section--dark reveal">
+<section class="section section--dark cat-results reveal">
   <div class="container">
     <div class="section__head">
-      <h2 class="h-slab on-dark">Nuestra mejor garantía es la operatividad de nuestros clientes.</h2>
+      <h2 class="h-slab on-dark">Nuestra mejor garantía es la<br>operatividad de nuestros clientes.</h2>
+      <span class="divider"></span>
       <p class="lead on-dark">Con criterios de calidad, entrega a tiempo y ejecución impecable.</p>
     </div>
     <div class="testimonials">
@@ -643,7 +649,8 @@ function buildService(svc) {
         .slice(0, 6)
         .map(
           (t) => `<div class="quote">
-            <div class="quote__head">${img('avatar.png', '', 'class="avatar"')}<span class="quote__name">${esc(t.name)}</span></div>
+            ${img('avatar.png', '', 'class="avatar"')}
+            <span class="quote__name">${esc(t.name)}</span>
             ${img(t.stars, '5 estrellas', 'class="quote__stars"')}
             <p class="quote__text">${esc(t.text)}</p>
           </div>`
@@ -654,14 +661,6 @@ function buildService(svc) {
 </section>
 
 ${svcFooterCta(svc.title)}
-
-${related.length ? `<section class="section reveal">
-  <div class="container">
-    <div class="section__head"><h2 class="h-section">También te puede interesar</h2></div>
-    <div class="cards">${related.map((s) => `<a class="card" href="/servicios/${s.slug}.html">${img(s.img, s.title, 'class="card__img"')}<div class="card__body"><p class="card__title">${plain(s.title)}</p></div></a>`).join('')}</div>
-    <div class="cards-cta">${btn(`Ver ${cat.name}`, `/servicios/${cat.slug}.html`, 'orange2')}</div>
-  </div>
-</section>` : ''}
 `;
   write(`servicios/${svc.slug}.html`, page({ title: svc.title, description: svc.summary, active: 'servicios', body }));
 }
@@ -675,111 +674,107 @@ ${heroSection({
     subtitle: 'Asumimos la complejidad técnica de sus instalaciones para que usted se enfoque en el crecimiento de su negocio.',
     btnLabel: 'Nuestros Servicios',
     btnHref: '#servicios',
+    mod: 'hero--nos',
   })}
 
-<section class="section reveal">
+<section class="section section--deco nos-about reveal">
+  ${deco('pointer', 'left:0;top:55px;width:240px')}
+  ${deco('shape', 'right:-72px;top:13px;width:400px;transform:scaleX(-1)')}
+  ${deco('pat-l', 'left:-247px;top:330px;width:536px;opacity:.58')}
+  ${deco('pat-r', 'right:-246px;bottom:0;width:536px;opacity:.58')}
   <div class="container">
-    <div class="section__head">
+    <div class="nos-about__head">
+      ${img('ico-usergroup.svg', '', 'class="nos-about__icon"')}
       <h2 class="h-section">¿Quiénes somos?</h2>
-      <div class="lead center">
-        <p><strong>EG SOLUTIONS C.A.</strong>, es una firma de ingeniería dedicada a la ejecución integral de <strong>soluciones en infraestructura, obras civiles y mantenimiento corporativo.</strong></p>
-        <p>Nos especializamos en intervenir y optimizar instalaciones con altas exigencias operativas: corporativas, industriales, hoteleras y centros de salud en Venezuela. Trabajamos bajo la premisa de la ingeniería aplicada, asumiendo el liderazgo de proyectos multidisciplinarios complejos para transformarlos en resultados viables, seguros y duraderos. No solo ejecutamos obras; generamos valor agregado para prolongar el ciclo de vida de cada activo.</p>
-      </div>
+      <span class="divider"></span>
+      <p class="nos-about__text"><strong>EG SOLUTIONS C.A.</strong>, es una firma de ingeniería dedicada a la ejecución integral de <strong>soluciones en infraestructura, obras civiles y mantenimiento corporativo.</strong> Nos especializamos en intervenir y optimizar instalaciones con altas exigencias operativas: corporativas, industriales, hoteleras y centros de salud en Venezuela. Trabajamos bajo la premisa de la ingeniería aplicada, asumiendo el liderazgo de proyectos multidisciplinarios complejos para transformarlos en resultados viables, seguros y duraderos. No solo ejecutamos obras; generamos valor agregado para prolongar el ciclo de vida de cada activo.</p>
       ${btn('Contáctanos', '/contacto.html', 'dark')}
     </div>
-  </div>
-</section>
-
-<section class="section reveal">
-  <div class="container about-split">
-    <div class="about-split__text">
-      <h2 class="h-section">Nuestra <span class="o">Misión</span></h2>
-      <p class="lead">Proporcionar soluciones infraestructurales y de mantenimiento preventivo/correctivo que garanticen la operatividad ininterrumpida de los espacios de nuestros clientes. Integramos recursos técnicos, personal calificado e innovación constante para optimizar inmuebles y servicios, convirtiéndonos en el pilar que sostiene su negocio núcleo.</p>
+    <div class="about-split">
+      <div class="about-split__text">
+        <h2 class="h-section">Nuestra <span class="o">Misión</span></h2>
+        <p class="lead">Proporcionar soluciones infraestructurales y de mantenimiento preventivo/correctivo que garanticen la operatividad ininterrumpida de los espacios de nuestros clientes. Integramos recursos técnicos, personal calificado e innovación constante para optimizar inmuebles y servicios, convirtiéndonos en el pilar que sostiene su negocio núcleo.</p>
+      </div>
+      ${img('nos-mision.webp', 'Equipo de EG SOLUTIONS trabajando')}
     </div>
-    ${img('nos-mision.webp', 'Equipo de EG SOLUTIONS trabajando')}
-  </div>
-</section>
-
-<section class="section reveal">
-  <div class="container about-split--rev about-split">
-    ${img('nos-vision.webp', 'Obra de EG SOLUTIONS')}
-    <div class="about-split__text">
-      <h2 class="h-section">Nuestra <span class="o">Visión</span></h2>
-      <p class="lead">Consolidarnos como el aliado estratégico y la firma de ingeniería de referencia en el sector de servicios en Venezuela, reconocidos por desarrollar prácticas de ejecución impecables, altos estándares de calidad y la capacidad de satisfacer las exigencias técnicas más rigurosas del mercado.</p>
+    <div class="about-split--rev about-split">
+      ${img('nos-vision.webp', 'Obra de EG SOLUTIONS')}
+      <div class="about-split__text">
+        <h2 class="h-section">Nuestra <span class="o">Visión</span></h2>
+        <p class="lead">Consolidarnos como el aliado estratégico y la firma de ingeniería de referencia en el sector de servicios en Venezuela, reconocidos por desarrollar prácticas de ejecución impecables, altos estándares de calidad y la capacidad de satisfacer las exigencias técnicas más rigurosas del mercado.</p>
+      </div>
     </div>
   </div>
 </section>
 
-<section class="section section--dark reveal">
+<section class="section section--dark section--deco nos-philo reveal">
+  ${deco('chevrons', 'left:0;top:34px;width:340px')}
+  ${deco('chevrons', 'right:0;top:34px;width:340px;transform:scaleX(-1)')}
   <div class="container">
-    <div class="section__head"><h2 class="h-slab on-dark">Filosofía Operativa</h2></div>
-    <p class="lead on-dark center" style="max-width:710px;margin:0 auto">Entendemos que detrás de cada proyecto de infraestructura hay un reto crítico para la operatividad de una empresa. Por ello, nuestra filosofía se fundamenta en la resiliencia corporativa y el esfuerzo calculado. Abordamos cada obstáculo técnico con una planificación minuciosa y un compromiso inquebrantable. El éxito de EG Solutions se mide por la tranquilidad operativa de los clientes a los que servimos.</p>
+    <h2 class="h-slab on-dark center">Filosofía Operativa</h2>
+    <span class="divider"></span>
+    <p class="nos-philo__text">Entendemos que detrás de cada proyecto de infraestructura hay un reto crítico para la operatividad de una empresa. Por ello, nuestra filosofía se fundamenta en la resiliencia corporativa y el esfuerzo calculado. Abordamos cada obstáculo técnico con una planificación minuciosa y un compromiso inquebrantable. El éxito de EG Solutions se mide por la tranquilidad operativa de los clientes a los que servimos.</p>
   </div>
 </section>
+<div class="strip">${['nos-strip1.webp', 'nos-strip2.webp', 'nos-strip3.webp'].map((i) => img(i, '', '', { sizes: '(max-width: 600px) 100vw, 34vw' })).join('')}</div>
 
-<section class="section reveal" id="servicios">
+<section class="section nos-projects reveal" id="servicios">
   <div class="container">
     ${iconsRow()}
     <div class="cards-cta">${btn('Conoce nuestros proyectos más destacados', '/soluciones.html', 'orange2', 'btn--wide')}</div>
+    <h2 class="h-section center nos-projects__title"><span class="o">11 años de trayectoria</span> ejecutando ingeniería <br>con alto nivel de profesionalismo.</h2>
+    ${cardsCarousel(projectCards, projectCard)}
   </div>
 </section>
+
+${testimonialsSection({ title: 'Opiniones de nuestros clientes', sub: 'No solo ejecutamos proyectos; construimos alianzas basadas en la confianza y el rigor técnico.\nConoce la experiencia de quienes ya centralizaron su gestión operativa con nosotros,\n**{o}clientes 100% satisfechos{/o}**', cta: { label: 'Contáctanos', href: '/contacto.html' } })}
 
 ${partnersStrip('Referentes de nuestras soluciones y servicios')}
-
-<section class="section reveal">
-  <div class="container">
-    <div class="section__head"><h2 class="h-section"><span class="o">11 años de trayectoria</span> ejecutando ingeniería con alto nivel de profesionalismo.</h2></div>
-    ${carousel(['nos-strip1.webp', 'nos-strip2.webp', 'nos-strip3.webp'], { id: 'nos-strip' })}
-  </div>
-</section>
-
-${testimonialsSection({ title: 'Opiniones de nuestros clientes', sub: 'No solo ejecutamos proyectos; construimos alianzas basadas en la confianza y el rigor técnico. Conoce la experiencia de quienes ya centralizaron su gestión operativa con nosotros, {o}clientes 100% satisfechos{/o}', cta: { label: 'Contáctanos', href: '/contacto.html' } })}
 `;
   write('nosotros.html', page({ title: 'Nosotros', description: 'Conoce a EG SOLUTIONS C.A.: misión, visión y 11 años de trayectoria en ingeniería e infraestructura en Venezuela.', active: 'nosotros', body }));
 }
 
 // ═══════════════════════════════ PÁGINA: SOLUCIONES ═══════════════════════════════
 function buildSoluciones() {
-  const grid = articles
-    .map(
-      (a) => `<a class="card sol-card" href="/soluciones/${a.slug}.html">
-        <div class="crop">${img(a.img, a.title, 'style="width:100%;height:100%;object-fit:cover"')}</div>
+  const card = (a) => {
+    const [w, h, l, t] = a.crop || [100, 100, 0, 0];
+    return `<a class="card sol-card" href="/soluciones/${a.slug}.html">
+        <div class="crop">${img(a.img, a.title, `style="width:${w}%;height:${h}%;left:${l}%;top:${t}%"`)}</div>
         <div class="card__body">
           <p class="card__title">${plain(a.cardTitle)}</p>
           <p class="card__text">${esc(a.cardText || a.text)}</p>
         </div>
-      </a>`
-    )
-    .join('');
+      </a>`;
+  };
 
   const body = `
-<section class="section reveal">
+<section class="section section--deco sol-page reveal">
+  ${deco('pointer', 'left:-56px;top:84px;width:240px')}
+  ${deco('shape', 'right:-95px;top:44px;width:400px;transform:scaleX(-1)')}
+  ${deco('pat-l', 'left:-300px;top:700px;width:536px;opacity:.58')}
+  ${deco('pat-r', 'right:-300px;bottom:40px;width:536px;opacity:.58')}
   <div class="container">
-    <div class="section__head">
-      <h2 class="h-slab">Soluciones Integrales\nen Ingeniería, Infraestructura y Mantenimiento Técnico</h2>
-    </div>
-    <div class="sol-grid">${grid}</div>
+    <h1 class="h-slab center sol-page__title">Soluciones Integrales<br> en Ingeniería, Infraestructura y<br> Mantenimiento Técnico</h1>
+    <span class="divider"></span>
+    <p class="sol-page__intro"><strong>Explora nuestros casos de éxito:</strong> un recorrido técnico por los proyectos donde hemos integrado soluciones de ingeniería, infraestructura y mantenimiento continuo.</p>
+    <div class="sol-grid">${articles.slice(0, 4).map(card).join('')}</div>
+    <h2 class="h-section center sol-page__sub">Descubre cómo transformamos infraestructuras<br> corporativas. <span class="o">Analiza nuestros proyectos ejecutados</span><br> y la ingeniería detrás de cada solución técnica</h2>
+    <span class="divider"></span>
+    <div class="sol-grid sol-grid--2">${articles.slice(4).map(card).join('')}</div>
   </div>
 </section>
-
-<section class="section reveal">
-  <div class="container">
-    <p class="lead center" style="max-width:691px;margin:0 auto 24px"><strong>Explora nuestros casos de éxito:</strong> un recorrido técnico por los proyectos donde hemos integrado soluciones de ingeniería, infraestructura y mantenimiento continuo.</p>
-    <span class="divider" style="margin-bottom:40px"></span>
-    <p class="h-section center" style="font-size:clamp(20px,2.2vw,32px);max-width:860px;margin:0 auto 40px">Descubre cómo transformamos infraestructuras corporativas. <span class="o">Analiza nuestros proyectos ejecutados</span> y la ingeniería detrás de cada solución técnica</p>
-    <div class="sol-grid">${projectCards.map((p) => `<a class="card sol-card" href="/${p.href}"><div class="crop">${img(p.img, p.title, 'style="width:100%;height:100%;object-fit:cover"')}</div><div class="card__body"><p class="card__title">${plain(p.title)}</p><p class="card__text">${esc(p.text)}</p></div></a>`).join('')}</div>
-  </div>
-</section>
-`;
-  write('soluciones.html', page({ title: 'Soluciones', description: 'Casos de éxito y artículos técnicos de EG SOLUTIONS: ingeniería, infraestructura y mantenimiento en Venezuela.', active: 'soluciones', body }));
+`;  write('soluciones.html', page({ title: 'Soluciones', description: 'Casos de éxito y artículos técnicos de EG SOLUTIONS: ingeniería, infraestructura y mantenimiento en Venezuela.', active: 'soluciones', body }));
 }
 
 // ═══════════════════════════════ PÁGINAS: ARTÍCULO ═══════════════════════════════
 function buildArticle(a) {
-  const related = articles.filter((x) => x.slug !== a.slug).slice(0, 4);
-  const relatedCat = projectCards.slice(0, 4);
+  // Artículos de interés: los dos siguientes de la lista (cíclico), como en el diseño
+  const ai = articles.indexOf(a);
+  const related = [1, 2].map((k) => articles[(ai + k) % articles.length]);
+  const relatedSvcs = (articleRelated[a.slug] || []).map((s) => services.find((x) => x.slug === s)).filter(Boolean);
   const body = `
-<section class="section reveal">
+<section class="section section--deco art-page reveal">
+  ${deco('pointer', 'left:-140px;top:51px;width:240px')}
   <div class="container article">
     <div>
       <div class="article__head">
@@ -803,17 +798,18 @@ function buildArticle(a) {
           </a>`
         )
         .join('')}
-      <h2 style="margin-top:16px">Cotiza con nosotros</h2>
+      <span class="divider"></span>
+      <h2 class="aside__cta">Cotiza con nosotros</h2>
       ${btn('Nuestro WhatsApp', waLink(), 'green')}
       ${btn('Llenar formulario', '/contacto.html', 'orange')}
     </aside>
   </div>
 </section>
 
-<section class="section section--dark reveal">
+<section class="section section--dark art-related reveal">
   <div class="container">
-    <div class="section__head"><h2 class="h-slab on-dark">Soluciones relacionadas</h2></div>
-    <div class="sol-grid">${relatedCat.map((p) => `<a class="card sol-card card--light" href="/${p.href}"><div class="crop">${img(p.img, p.title, 'style="width:100%;height:100%;object-fit:cover"')}</div><div class="card__body"><p class="card__title">${plain(p.title)}</p><p class="card__text">${esc(p.text)}</p></div></a>`).join('')}</div>
+    <div class="section__head"><h2 class="h-slab on-dark">Soluciones relacionadas</h2><span class="divider"></span></div>
+    ${cardsCarousel(relatedSvcs, (s) => `<a class="card sol-card card--light" href="/servicios/${s.slug}.html"><div class="crop">${img(s.img, s.title, 'style="width:100%;height:100%;object-fit:cover"')}</div><div class="card__body"><p class="card__title">${plain(relatedCardTitle[s.slug] || projectCards.find((p) => p.href.endsWith(`/${s.slug}.html`))?.title || s.zzTitle || s.title)}</p><p class="card__text">${esc(s.summary)}</p></div></a>`)}
   </div>
 </section>
 
@@ -825,7 +821,7 @@ ${svcFooterCta()}
 // ═══════════════════════════════ PÁGINA: CONTACTO ═══════════════════════════════
 function buildContacto() {
   const body = `
-<section class="contact-hero reveal">
+<section class="contact-hero">
   <div class="container contact-split">
     <div class="contact-split__text">
       ${img('logo.png', site.name, 'class="contact-hero__logo"')}
@@ -839,11 +835,6 @@ function buildContacto() {
 
 ${readySection()}
 
-<section class="section reveal">
-  <div class="container partners__row" style="justify-content:center;gap:40px">
-    ${['partner-1.svg', 'partner-2.svg', 'partner-3.svg', 'partner-4.svg', 'partner-5.svg'].map((p) => img(p, '')).join('')}
-  </div>
-</section>
 `;
   write('contacto.html', page({ title: 'Contacto', description: 'Solicita una inspección o cotización con EG SOLUTIONS C.A. Te respondemos en menos de 24 horas hábiles.', active: 'contacto', body }));
 }

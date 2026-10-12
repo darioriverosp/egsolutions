@@ -199,6 +199,21 @@
    }
   ]
  },
+ "clima-strip1.webp": {
+  "hash": "42c170bb",
+  "w": 444,
+  "h": 227
+ },
+ "clima-strip2.webp": {
+  "hash": "c3c0e268",
+  "w": 444,
+  "h": 227
+ },
+ "clima-strip3.webp": {
+  "hash": "23aa625b",
+  "w": 444,
+  "h": 227
+ },
  "cta-bg-1200.webp": {
   "hash": "cb669b21",
   "w": 1200,
@@ -238,6 +253,11 @@
   "w": 800,
   "h": 1422
  },
+ "deco-chevrons.png": {
+  "hash": "a91a30b1",
+  "w": 341,
+  "h": 106
+ },
  "deco-hex.png": {
   "hash": "40007165",
   "w": 800,
@@ -252,6 +272,11 @@
   "hash": "f86361c1",
   "w": 536,
   "h": 302
+ },
+ "deco-pointer.png": {
+  "hash": "abe40f59",
+  "w": 240,
+  "h": 300
  },
  "divider-long.svg": {
   "hash": "d95ac25e",
@@ -357,6 +382,21 @@
   "hash": "dd8dbc3d",
   "w": 436,
   "h": 545
+ },
+ "gest-strip1.webp": {
+  "hash": "e3a0f00e",
+  "w": 444,
+  "h": 227
+ },
+ "gest-strip2.webp": {
+  "hash": "494c1c5f",
+  "w": 444,
+  "h": 227
+ },
+ "gest-strip3.webp": {
+  "hash": "ef708e98",
+  "w": 444,
+  "h": 227
  },
  "hero-home-1200.webp": {
   "hash": "9e7dd0f7",
