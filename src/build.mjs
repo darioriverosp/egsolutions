@@ -104,7 +104,7 @@ function megaPanel(cat, i) {
     )
     .join('');
   return `<div class="mega__panel${i === 0 ? ' is-active' : ''}" data-panel="${cat.slug}">
-    <img class="mega__icon" src="/assets/img/${cat.menuIcon}" alt="" aria-hidden="true">
+    <img class="mega__icon" src="/assets/img/${cat.icon}" alt="" aria-hidden="true">
     <ul class="mega__subs">${items}</ul>
     <p class="mega__q">${esc(cat.menuQuestion)}</p>
     ${btn(cat.menuBtn, `/servicios/${cat.slug}.html`, 'orange', 'btn--wide')}
