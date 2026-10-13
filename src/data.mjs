@@ -60,7 +60,7 @@ export const categories = [
     footerName: 'Climatización y Refrigeración',
     icon: 'ico-temperature.svg',
     menuIcon: 'menu-thermo.svg',
-    hero: 'card-climatizacion.webp', // PENDIENTE: foto de portada propia de la categoría
+    hero: 'clima-hero.webp',
     title: 'Climatización y Refrigeración',
     subtitle: 'Especialistas en Climatización y Refrigeración Comercial e Industrial.',
     h2: 'Garantizamos la {o}temperatura ideal y la protección{/o}\nde tus activos sin interrupciones operativas.',
@@ -84,7 +84,7 @@ export const categories = [
     footerName: 'Gestión de Inmuebles y Mantenimiento',
     icon: 'ico-armchair.svg',
     menuIcon: 'menu-armchair.svg',
-    hero: 'nos-strip1.webp',
+    hero: 'gest-hero.webp',
     title: 'Gestión de Inmuebles y Mantenimiento',
     subtitle: 'Especialistas en Gestión de Inmuebles y Mantenimiento Técnico Integral.',
     h2: 'Optimizamos el {o}valor de tus propiedades{/o} y\ngarantizamos el funcionamiento\nininterrumpido de tu infraestructura.',
@@ -106,7 +106,7 @@ export const categories = [
     menuName: 'Servicios para el Sector Hotelero',
     icon: 'ico-bed.svg',
     menuIcon: 'ico-bed.svg',
-    hero: 'hotel-strip3.webp', // PENDIENTE: foto de portada propia (en Figma es otra habitación)
+    hero: 'hotel-hero.webp',
     title: 'Servicios para el Sector Hotelero',
     subtitle: 'Especialistas en Remodelación y Mantenimiento Técnico para el área hotelera.',
     h2: 'Garantizamos el {o}funcionamiento impecable{/o} de\ntu infraestructura y el {o}confort de tus clientes{/o}\nsin paralizar tus operaciones',

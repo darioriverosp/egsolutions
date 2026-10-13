@@ -199,6 +199,40 @@
    }
   ]
  },
+ "clima-hero-1200.webp": {
+  "hash": "528e7981",
+  "w": 1200,
+  "h": 490
+ },
+ "clima-hero-480.webp": {
+  "hash": "708523b1",
+  "w": 480,
+  "h": 196
+ },
+ "clima-hero-800.webp": {
+  "hash": "3af60ca3",
+  "w": 800,
+  "h": 326
+ },
+ "clima-hero.webp": {
+  "hash": "09520cd4",
+  "w": 1424,
+  "h": 581,
+  "variants": [
+   {
+    "file": "clima-hero-480.webp",
+    "w": 480
+   },
+   {
+    "file": "clima-hero-800.webp",
+    "w": 800
+   },
+   {
+    "file": "clima-hero-1200.webp",
+    "w": 1200
+   }
+  ]
+ },
  "clima-strip1.webp": {
   "hash": "42c170bb",
   "w": 444,
@@ -383,6 +417,40 @@
   "w": 436,
   "h": 545
  },
+ "gest-hero-1200.webp": {
+  "hash": "141df4f0",
+  "w": 1200,
+  "h": 488
+ },
+ "gest-hero-480.webp": {
+  "hash": "2eb84cce",
+  "w": 480,
+  "h": 195
+ },
+ "gest-hero-800.webp": {
+  "hash": "84d594d9",
+  "w": 800,
+  "h": 325
+ },
+ "gest-hero.webp": {
+  "hash": "27b2d4b0",
+  "w": 1429,
+  "h": 581,
+  "variants": [
+   {
+    "file": "gest-hero-480.webp",
+    "w": 480
+   },
+   {
+    "file": "gest-hero-800.webp",
+    "w": 800
+   },
+   {
+    "file": "gest-hero-1200.webp",
+    "w": 1200
+   }
+  ]
+ },
  "gest-strip1.webp": {
   "hash": "e3a0f00e",
   "w": 444,
@@ -445,6 +513,40 @@
    {
     "file": "home-team-480.webp",
     "w": 480
+   }
+  ]
+ },
+ "hotel-hero-1200.webp": {
+  "hash": "ec948d0d",
+  "w": 1200,
+  "h": 485
+ },
+ "hotel-hero-480.webp": {
+  "hash": "e2335ce9",
+  "w": 480,
+  "h": 194
+ },
+ "hotel-hero-800.webp": {
+  "hash": "71320fec",
+  "w": 800,
+  "h": 323
+ },
+ "hotel-hero.webp": {
+  "hash": "7259e4d4",
+  "w": 1437,
+  "h": 581,
+  "variants": [
+   {
+    "file": "hotel-hero-480.webp",
+    "w": 480
+   },
+   {
+    "file": "hotel-hero-800.webp",
+    "w": 800
+   },
+   {
+    "file": "hotel-hero-1200.webp",
+    "w": 1200
    }
   ]
  },
