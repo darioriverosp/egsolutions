@@ -200,24 +200,29 @@
   ]
  },
  "clima-hero-1200.webp": {
-  "hash": "528e7981",
+  "hash": "75997c8b",
   "w": 1200,
-  "h": 490
+  "h": 485
+ },
+ "clima-hero-1440.webp": {
+  "hash": "5ef9ebeb",
+  "w": 1440,
+  "h": 582
  },
  "clima-hero-480.webp": {
-  "hash": "708523b1",
+  "hash": "298c8b62",
   "w": 480,
-  "h": 196
+  "h": 194
  },
  "clima-hero-800.webp": {
-  "hash": "3af60ca3",
+  "hash": "893c05e3",
   "w": 800,
-  "h": 326
+  "h": 323
  },
  "clima-hero.webp": {
-  "hash": "09520cd4",
-  "w": 1424,
-  "h": 581,
+  "hash": "69d6d066",
+  "w": 2560,
+  "h": 1034,
   "variants": [
    {
     "file": "clima-hero-480.webp",
@@ -230,6 +235,10 @@
    {
     "file": "clima-hero-1200.webp",
     "w": 1200
+   },
+   {
+    "file": "clima-hero-1440.webp",
+    "w": 1440
    }
   ]
  },
@@ -418,24 +427,29 @@
   "h": 545
  },
  "gest-hero-1200.webp": {
-  "hash": "141df4f0",
+  "hash": "1bf9e98a",
   "w": 1200,
-  "h": 488
+  "h": 521
+ },
+ "gest-hero-1440.webp": {
+  "hash": "0b79f0d3",
+  "w": 1440,
+  "h": 625
  },
  "gest-hero-480.webp": {
-  "hash": "2eb84cce",
+  "hash": "fe1139be",
   "w": 480,
-  "h": 195
+  "h": 208
  },
  "gest-hero-800.webp": {
-  "hash": "84d594d9",
+  "hash": "91381456",
   "w": 800,
-  "h": 325
+  "h": 347
  },
  "gest-hero.webp": {
-  "hash": "27b2d4b0",
-  "w": 1429,
-  "h": 581,
+  "hash": "d89ca53b",
+  "w": 2560,
+  "h": 1111,
   "variants": [
    {
     "file": "gest-hero-480.webp",
@@ -448,6 +462,10 @@
    {
     "file": "gest-hero-1200.webp",
     "w": 1200
+   },
+   {
+    "file": "gest-hero-1440.webp",
+    "w": 1440
    }
   ]
  },
@@ -517,24 +535,29 @@
   ]
  },
  "hotel-hero-1200.webp": {
-  "hash": "ec948d0d",
+  "hash": "ded1395c",
   "w": 1200,
-  "h": 485
+  "h": 500
+ },
+ "hotel-hero-1440.webp": {
+  "hash": "adc0e501",
+  "w": 1440,
+  "h": 600
  },
  "hotel-hero-480.webp": {
-  "hash": "e2335ce9",
+  "hash": "95a78430",
   "w": 480,
-  "h": 194
+  "h": 200
  },
  "hotel-hero-800.webp": {
-  "hash": "71320fec",
+  "hash": "a243a8db",
   "w": 800,
-  "h": 323
+  "h": 333
  },
  "hotel-hero.webp": {
-  "hash": "7259e4d4",
-  "w": 1437,
-  "h": 581,
+  "hash": "809a24f5",
+  "w": 2560,
+  "h": 1066,
   "variants": [
    {
     "file": "hotel-hero-480.webp",
@@ -547,6 +570,10 @@
    {
     "file": "hotel-hero-1200.webp",
     "w": 1200
+   },
+   {
+    "file": "hotel-hero-1440.webp",
+    "w": 1440
    }
   ]
  },
@@ -761,9 +788,9 @@
   "h": 600
  },
  "nos-hero.webp": {
-  "hash": "b59c2a9a",
-  "w": 1440,
-  "h": 1080,
+  "hash": "540d884e",
+  "w": 1600,
+  "h": 1200,
   "variants": [
    {
     "file": "nos-hero-480.webp",
@@ -954,6 +981,11 @@
   "w": 1200,
   "h": 900
  },
+ "obras-hero-1440.webp": {
+  "hash": "7eabb333",
+  "w": 1440,
+  "h": 1080
+ },
  "obras-hero-480.webp": {
   "hash": "67331248",
   "w": 480,
@@ -965,9 +997,9 @@
   "h": 600
  },
  "obras-hero.webp": {
-  "hash": "7e73f6a1",
-  "w": 1440,
-  "h": 1080,
+  "hash": "b8348996",
+  "w": 2560,
+  "h": 1920,
   "variants": [
    {
     "file": "obras-hero-480.webp",
@@ -980,6 +1012,10 @@
    {
     "file": "obras-hero-1200.webp",
     "w": 1200
+   },
+   {
+    "file": "obras-hero-1440.webp",
+    "w": 1440
    }
   ]
  },

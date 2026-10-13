@@ -9,6 +9,7 @@ import crypto from 'node:crypto';
 const DIR = 'public/assets/img';
 const WIDTHS = [480, 800, 1200];
 const BASE_MAX = 1440;
+const HERO_MAX = 2560; // portadas a pantalla completa: versión grande para pantallas de alta resolución
 const KEEP = new Set(['logo', 'deco-hex', 'deco-arrow', 'avatar']); // se mantienen como PNG
 
 // 1) Fotos con original en src/raw
@@ -19,11 +20,13 @@ for (const f of fs.readdirSync('src/raw')) {
   const { info } = await src().toBuffer({ resolveWithObject: true });
   const w = info.width;
   // Variantes más pequeñas que el original
-  for (const vw of WIDTHS) {
+  const hero = /-hero$/.test(name);
+  const widths = hero ? [...WIDTHS, 1440] : WIDTHS;
+  for (const vw of widths) {
     if (vw < w * 0.85) await src().resize({ width: vw }).webp({ quality: 74 }).toFile(`${DIR}/${name}-${vw}.webp`);
     else fs.rmSync(`${DIR}/${name}-${vw}.webp`, { force: true });
   }
-  await src().resize({ width: Math.min(w, BASE_MAX), withoutEnlargement: true }).webp({ quality: 72 }).toFile(`${DIR}/${name}.webp.tmp`);
+  await src().resize({ width: Math.min(w, hero ? HERO_MAX : BASE_MAX), withoutEnlargement: true }).webp({ quality: 72 }).toFile(`${DIR}/${name}.webp.tmp`);
   fs.renameSync(`${DIR}/${name}.webp.tmp`, `${DIR}/${name}.webp`);
 }
 
@@ -32,7 +35,7 @@ for (const vw of [192, 384]) await sharp(`${DIR}/logo.png`).resize({ width: vw }
 
 // 3) Manifiesto
 const files = fs.readdirSync(DIR).filter((f) => /\.(webp|png|svg)$/.test(f));
-const isVariant = (f) => /-(192|384|480|800|1200)\.webp$/.test(f);
+const isVariant = (f) => /-(192|384|480|800|1200|1440)\.webp$/.test(f);
 const manifest = {};
 for (const f of files) {
   const buf = fs.readFileSync(`${DIR}/${f}`);
