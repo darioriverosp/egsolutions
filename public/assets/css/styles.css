@@ -507,10 +507,7 @@ button { font: inherit; cursor: pointer; }
 }
 
 /* Servicio individual */
-.svc-page .carousel__slide img { aspect-ratio: 576 / 471; }
-.svc-page .carousel__viewport { box-shadow: 14px 14px 5px rgba(0, 0, 0, .09); border-radius: 31px; }
-.svc-page .carousel__dots { margin-top: 13px; gap: 10px; }
-.svc-page .carousel__dot { width: 13px; height: 13px; }
+.svc-photo { width: 100%; aspect-ratio: 576 / 471; object-fit: cover; border-radius: 31px; box-shadow: 14px 14px 5px rgba(0, 0, 0, .09); }
 .svc-page .details { margin-top: 64px; }
 .svc-page .details__text { font-size: 19px; line-height: 1.22; }
 .svc-page .details__text h2 { font-size: clamp(26px, 2.6vw, 36px); margin-bottom: 20px; }
@@ -527,7 +524,7 @@ button { font: inherit; cursor: pointer; }
   .svc-page .svc-top__text .lead p + p { margin-top: 1.2em; }
   .svc-page .svc-top__text h2 { margin-top: 40px; font-size: 24px; }
   .svc-page .svc-top__text .btn { margin-top: 18px; }
-  .svc-page .carousel__btn--prev { left: -58px; }
+  .svc-page .svc-photo { margin-top: 0; }
   .svc-page .details { grid-template-columns: minmax(0, var(--det, 560px)) var(--form, 560px); justify-content: space-between; gap: 40px; margin-top: 104px; }
   .svc-page .form { gap: 26px; }
   .svc-page .form input { height: 67px; }

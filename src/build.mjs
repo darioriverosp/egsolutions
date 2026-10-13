@@ -610,8 +610,6 @@ function buildService(svc) {
   const bullets = svc.bullets
     .map(([label, text]) => `<li><strong>${esc(label)}</strong> ${esc(text)}</li>`)
     .join('');
-  // Galería: la foto del servicio y las de los demás servicios de su categoría
-  const gallery = [svc.img, ...services.filter((s) => s.cat === svc.cat && s.slug !== svc.slug).map((s) => s.img)];
   const body = `
 <section class="section section--deco svc-page reveal"${svcLayout[svc.slug] ? ` style="--lead:${svcLayout[svc.slug].lead}px;--det:${svcLayout[svc.slug].det}px;--form:${svcLayout[svc.slug].form}px"` : ''}>
   ${deco('pointer', 'left:-118px;top:79px;width:197px')}
@@ -624,7 +622,7 @@ function buildService(svc) {
         <h2>Cotiza con nosotros</h2>
         ${btn('Nuestro WhatsApp', waLink(svc.title), 'green')}
       </div>
-      ${carousel(gallery, { id: `galeria-${svc.slug}` })}
+      ${img(svc.img, svc.title, 'class="svc-photo"', { sizes: '(max-width: 960px) 92vw, 576px' })}
     </div>
     <div class="details">
       <div class="details__text">
