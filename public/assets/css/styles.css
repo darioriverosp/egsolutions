@@ -686,3 +686,24 @@ button { font: inherit; cursor: pointer; }
   .years { text-align: center; margin-left: 0; }
   .contact-hero__logo { width: 220px; }
 }
+
+/* Página 404 */
+.notfound { padding: 120px 0; }
+.notfound__code { font-family: var(--font-slab); font-weight: 800; font-size: clamp(72px, 12vw, 140px); color: var(--orange); line-height: 1; }
+.notfound .h-section { margin-top: 16px; }
+.notfound .lead { margin: 20px auto 0; max-width: 560px; }
+.notfound__links { display: flex; flex-wrap: wrap; justify-content: center; gap: 16px; margin-top: 40px; }
+
+/* Menú móvil: servicios dentro del menú hamburguesa */
+.nav__sub { display: none; }
+@media (max-width: 960px) {
+  .mega { display: none !important; }
+  .nav__link[aria-expanded="true"] + .nav__sub { display: block; }
+  .nav__sub { padding: 4px 0 12px 8px; border-bottom: 1px solid #eee; }
+  .nav__cat + .nav__cat { margin-top: 14px; }
+  .nav__cat-link { display: flex; align-items: center; gap: 12px; padding: 8px 0; font-family: var(--font-slab); font-weight: 700; font-size: 16px; color: var(--dark); }
+  .nav__cat-link img { width: 22px; height: 22px; object-fit: contain; }
+  .nav__cat ul { list-style: none; margin: 0; padding: 0 0 0 34px; }
+  .nav__cat li a { display: block; padding: 7px 0; font-size: 15px; color: #555; }
+  .nav__cat-link:hover, .nav__cat li a:hover { color: var(--orange); }
+}

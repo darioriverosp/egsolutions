@@ -5,6 +5,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import crypto from 'node:crypto';
 import CleanCSS from 'clean-css';
+import sharp from 'sharp';
 import { site, categories, services, homeCards, whyUs, projectCards, articles, testimonials } from './data.mjs';
 import { bodies } from './articles-bodies.mjs';
 import { svcTitles } from './svc-titles.mjs';
@@ -28,6 +29,10 @@ const fontsCss = fs.readFileSync('src/fonts.css', 'utf8').trim();
 const svcLayout = JSON.parse(fs.readFileSync(new URL('./svc-layout.json', import.meta.url), 'utf8'));
 const manifest = JSON.parse(fs.readFileSync('src/img-manifest.json', 'utf8'));
 let lastPriority = null; // imagen principal (LCP) de la página en construcción
+const ogImages = new Set(); // imágenes para la vista previa al compartir (se generan en JPG 1200×630)
+const pagesOut = []; // páginas escritas, para sitemap.xml
+// Recorta un texto a ~155 caracteres sin cortar palabras (meta description)
+const clip = (s, n = 155) => { const t = String(s).replace(/\s+/g, ' ').trim(); return t.length <= n ? t : t.slice(0, t.lastIndexOf(' ', n)).replace(/[,;:.]$/, '') + '…'; };
 
 // ── Helpers de texto ─────────────────────────────────────────
 function esc(s) {
@@ -75,7 +80,7 @@ function img(name, alt, attrs = '', opts = {}) {
     extra += ` srcset="${srcset}" sizes="${sizes}"`;
   }
   if (m && m.w) extra += ` width="${m.w}" height="${m.h}"`;
-  if (opts.priority) lastPriority = { src: url(name), srcset, sizes };
+  if (opts.priority) lastPriority = { src: url(name), srcset, sizes, name };
   const eager = opts.eager || opts.priority || /brand__logo|hero__icon/.test(attrs);
   return `<img src="${url(name)}"${extra} alt="${esc(alt || '')}" loading="${eager ? 'eager' : 'lazy'}" decoding="async"${opts.priority ? ' fetchpriority="high"' : ''} ${attrs}>`;
 }
@@ -128,6 +133,20 @@ function megaMenu() {
     </div>
   </div>`;
 }
+// Menú móvil: categorías y sus servicios como enlaces (el mega menú de escritorio no cabe en el celular)
+function mobileServices() {
+  return `<div class="nav__sub" id="nav-servicios">${categories
+    .map(
+      (c) => `<div class="nav__cat">
+        <a class="nav__cat-link" href="/servicios/${c.slug}.html"><img src="/assets/img/${c.menuIcon}" alt="">${esc(c.menuName)}</a>
+        <ul>${services
+          .filter((s) => s.cat === c.slug)
+          .map((s) => `<li><a href="/servicios/${s.slug}.html">${esc(s.title)}</a></li>`)
+          .join('')}</ul>
+      </div>`
+    )
+    .join('')}</div>`;
+}
 function header(active) {
   const link = (key, label, href) =>
     `<a class="nav__link" href="${href}" ${active === key ? 'aria-current="page"' : ''}>${esc(label)}</a>`;
@@ -147,6 +166,7 @@ function header(active) {
       <a class="nav__link" href="#" data-mega-trigger aria-haspopup="true" aria-controls="mega-servicios">
         Servicios ${img('ico-chevron-down.svg', '')}
       </a>
+      ${mobileServices()}
       <a class="nav__cta" href="/contacto.html">Contacto</a>
     </nav>
   </div>
@@ -208,10 +228,15 @@ function footer() {
 }
 
 // ── Esqueleto de página ─────────────────────────────────────────
-function page({ title, description, active, bodyClass = '', body, bodyAttrs = '' }) {
+function page({ title, description, active, bodyClass = '', body, bodyAttrs = '', ogImg = '' }) {
   // Precarga de la imagen principal (LCP) registrada por heroSection durante la construcción del body
   const pre = lastPriority;
   lastPriority = null;
+  const og = ogImg || (pre && pre.name) || 'hero-home.webp';
+  ogImages.add(og);
+  const ogUrl = `${site.url}/assets/img/og/${og.replace(/\.\w+$/, '')}.jpg`;
+  const fullTitle = `${title} · ${site.name}`;
+  const desc = clip(description);
   const preloadImg = pre
     ? `<link rel="preload" as="image" href="${pre.src}"${pre.srcset ? ` imagesrcset="${pre.srcset}" imagesizes="${pre.sizes}"` : ''} fetchpriority="high">\n`
     : '';
@@ -220,9 +245,22 @@ function page({ title, description, active, bodyClass = '', body, bodyAttrs = ''
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>${esc(title)} · ${esc(site.name)}</title>
-<meta name="description" content="${esc(description)}">
+<title>${esc(fullTitle)}</title>
+<meta name="description" content="${esc(desc)}">
+<link rel="canonical" href="__CANON__">
+<meta name="theme-color" content="#ee7d16">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="es_VE">
+<meta property="og:site_name" content="${esc(site.legal)}">
+<meta property="og:title" content="${esc(fullTitle)}">
+<meta property="og:description" content="${esc(desc)}">
+<meta property="og:url" content="__CANON__">
+<meta property="og:image" content="${ogUrl}">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
 <link rel="icon" type="image/webp" href="/assets/img/logo-192.webp">
+<link rel="apple-touch-icon" href="/assets/img/logo-192.webp">
 <link rel="preload" href="/assets/fonts/roboto-slab-latin.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/assets/fonts/inter-latin.woff2" as="font" type="font/woff2" crossorigin>
 ${preloadImg}<style>${fontsCss}${minCss}</style>
@@ -660,7 +698,7 @@ function buildService(svc) {
 
 ${svcFooterCta(svc.title)}
 `;
-  write(`servicios/${svc.slug}.html`, page({ title: svc.title, description: svc.summary, active: 'servicios', body }));
+  write(`servicios/${svc.slug}.html`, page({ title: svc.title, description: svc.summary, active: 'servicios', body, ogImg: svc.img }));
 }
 
 // ═══════════════════════════════ PÁGINA: NOSOTROS ═══════════════════════════════
@@ -813,7 +851,7 @@ function buildArticle(a) {
 
 ${svcFooterCta()}
 `;
-  write(`soluciones/${a.slug}.html`, page({ title: a.cardTitle.replace(/\n/g, ' '), description: a.text, active: 'soluciones', body }));
+  write(`soluciones/${a.slug}.html`, page({ title: a.cardTitle.replace(/\n/g, ' '), description: a.text, active: 'soluciones', body, ogImg: a.img }));
 }
 
 // ═══════════════════════════════ PÁGINA: CONTACTO ═══════════════════════════════
@@ -838,7 +876,10 @@ ${readySection()}
 }
 
 // ── Escritura de archivos ─────────────────────────────────────────
-function write(rel, html) {
+function write(rel, html, { index = true } = {}) {
+  const loc = `${site.url}/${rel === 'index.html' ? '' : rel}`;
+  html = html.replaceAll('__CANON__', loc);
+  if (index) pagesOut.push(loc);
   const full = path.join(OUT, rel);
   fs.mkdirSync(path.dirname(full), { recursive: true });
   fs.writeFileSync(full, html);
@@ -852,4 +893,41 @@ buildNosotros();
 buildSoluciones();
 articles.forEach(buildArticle);
 buildContacto();
+build404();
+
+// Página de error 404 (Netlify y GoDaddy/Apache la sirven para direcciones que no existen)
+function build404() {
+  const body = `
+<section class="section notfound">
+  <div class="container center">
+    <p class="notfound__code">404</p>
+    <h1 class="h-section">Esta página no existe o cambió de dirección</h1>
+    <p class="lead">Puede que el enlace esté mal escrito. Te dejamos los accesos principales:</p>
+    <div class="notfound__links">
+      ${btn('Ir al inicio', '/', 'orange')}
+      ${btn('Ver servicios', '/servicios/obras-civiles.html', 'dark')}
+      ${btn('Escríbenos por WhatsApp', waLink(), 'green')}
+    </div>
+  </div>
+</section>`;
+  const html = page({ title: 'Página no encontrada', description: 'La página que buscas no existe.', active: '', body });
+  write('404.html', html.replace('<meta name="theme-color"', '<meta name="robots" content="noindex">\n<meta name="theme-color"'), { index: false });
+}
+
+// sitemap.xml + robots.txt para que Google encuentre todas las páginas
+const today = new Date().toISOString().slice(0, 10);
+fs.writeFileSync(path.join(OUT, 'sitemap.xml'), `<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+${pagesOut.map((u) => `  <url><loc>${u}</loc><lastmod>${today}</lastmod></url>`).join('\n')}
+</urlset>
+`);
+fs.writeFileSync(path.join(OUT, 'robots.txt'), `User-agent: *\nAllow: /\n\nSitemap: ${site.url}/sitemap.xml\n`);
+
+// Imágenes para compartir (WhatsApp, Facebook…): JPG 1200×630, solo si no existen ya
+fs.mkdirSync(path.join(OUT, 'assets/img/og'), { recursive: true });
+for (const name of ogImages) {
+  const out = path.join(OUT, 'assets/img/og', name.replace(/\.\w+$/, '') + '.jpg');
+  if (fs.existsSync(out)) continue;
+  await sharp(path.join(OUT, 'assets/img', name)).resize(1200, 630, { fit: 'cover' }).jpeg({ quality: 80, mozjpeg: true }).toFile(out);
+}
 console.log(`\nListo: ${1 + categories.length + services.length + 1 + 1 + articles.length + 1} páginas generadas en public/`);
