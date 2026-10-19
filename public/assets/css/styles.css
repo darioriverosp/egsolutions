@@ -34,6 +34,7 @@ body {
   line-height: 1.25;
   -webkit-font-smoothing: antialiased;
   overflow-x: hidden;
+  overflow-x: clip; /* clip no crea contenedor de scroll: la cabecera sticky sigue funcionando */
 }
 img { max-width: 100%; height: auto; display: block; }
 a { color: inherit; text-decoration: none; }
@@ -706,4 +707,23 @@ button { font: inherit; cursor: pointer; }
   .nav__cat ul { list-style: none; margin: 0; padding: 0 0 0 34px; }
   .nav__cat li a { display: block; padding: 7px 0; font-size: 15px; color: #555; }
   .nav__cat-link:hover, .nav__cat li a:hover { color: var(--orange); }
+}
+
+/* Instagram destacado en el pie */
+.footer__ig { margin-left: auto; display: inline-flex; align-items: center; gap: 12px; padding: 10px 22px 10px 14px; border-radius: 30px; background: var(--orange); color: #fff; box-shadow: 0 4px 10px rgba(0, 0, 0, .18); transition: transform .15s ease, background-color .15s ease; }
+.footer__ig:hover { background: #d96d0b; transform: translateY(-2px); }
+.footer__ig img { width: 34px; height: 34px; filter: brightness(0) invert(1); }
+.footer__ig > span { display: flex; flex-direction: column; line-height: 1.15; }
+.footer__ig-label { font-size: 12px; font-weight: 500; opacity: .9; }
+.footer__ig-handle { font-family: var(--font-sans); font-size: 18px; font-weight: 800; }
+@media (max-width: 600px) { .footer__ig { margin-left: 0; } }
+
+/* Instagram en la cabecera (móvil) y dentro del menú hamburguesa */
+.header__ig, .nav__ig { display: none; }
+@media (max-width: 960px) {
+  .header__ig { display: grid; place-items: center; width: 40px; height: 40px; margin-left: auto; border-radius: 50%; background: var(--orange); }
+  .header__ig img { width: 22px; height: 22px; filter: brightness(0) invert(1); }
+  .header__ig + .nav-toggle { margin-left: 8px; }
+  .nav__ig { display: flex; align-items: center; justify-content: center; gap: 10px; margin-top: 12px; padding: 12px; border: 2px solid var(--orange); border-radius: 14px; color: var(--orange); font-weight: 700; font-size: 16px; }
+  .nav__ig img { width: 22px; height: 22px; }
 }

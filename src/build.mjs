@@ -159,6 +159,7 @@ function header(active) {
         <span class="brand__tag">${esc(site.tagline)}</span>
       </span>
     </a>
+    <a class="header__ig" href="${site.instagram}" target="_blank" rel="noopener" aria-label="Instagram ${esc(site.instagramHandle)}">${img('ico-instagram.svg', '', '', { eager: true })}</a>
     <button type="button" class="nav-toggle" aria-label="Abrir menú" aria-expanded="false"><span></span></button>
     <nav class="nav" aria-label="Principal">
       ${link('nosotros', 'Nosotros', '/nosotros.html')}
@@ -168,6 +169,7 @@ function header(active) {
       </a>
       ${mobileServices()}
       <a class="nav__cta" href="/contacto.html">Contacto</a>
+      <a class="nav__ig" href="${site.instagram}" target="_blank" rel="noopener">${img('ico-instagram-orange.svg', '', '', { eager: true })} Síguenos en Instagram ${esc(site.instagramHandle)}</a>
     </nav>
   </div>
   ${megaMenu()}
@@ -196,10 +198,10 @@ function footer() {
         <span class="brand__name">${esc(site.name)}</span>
         <span class="brand__tag">${esc(site.tagline)}</span>
       </span>
-      <div class="footer__social">
-        <a href="${site.instagram}" target="_blank" rel="noopener">${esc(site.instagramHandle)}</a>
-        ${img('ico-instagram.svg', 'Instagram')}
-      </div>
+      <a class="footer__ig" href="${site.instagram}" target="_blank" rel="noopener" aria-label="Síguenos en Instagram ${esc(site.instagramHandle)}">
+        ${img('ico-instagram.svg', '')}
+        <span><span class="footer__ig-label">Síguenos en Instagram</span><span class="footer__ig-handle">${esc(site.instagramHandle)}</span></span>
+      </a>
     </div>
     <div class="footer__about">
       En <strong>${esc(site.legal)}</strong>, conjugamos todas las áreas de la ingeniería para ofrecerte un
