@@ -44,10 +44,10 @@ function md(s) {
   let h = esc(s);
   h = h.replace(/\{o\}([\s\S]*?)\{\/o\}/g, '<span class="o">$1</span>');
   h = h.replace(/\*\*([\s\S]*?)\*\*/g, '<strong>$1</strong>');
-  h = h.replace(/\n/g, '<br>');
+  h = h.replace(/\n/g, ' <br>');
   return h;
 }
-function plain(s) { return esc(s).replace(/\n/g, '<br>'); }
+function plain(s) { return esc(s).replace(/\n/g, ' <br>'); }
 // Párrafos separados por doble salto de línea.
 function paragraphs(s) {
   return s.split(/\n\n+/).map((p) => `<p>${md(p)}</p>`).join('');
@@ -509,7 +509,7 @@ ${heroSection({
   ${deco('shape', 'left:107px;top:58px;width:162px')}
   ${deco('shape', 'right:-27px;top:58px;width:162px;transform:scaleX(-1)')}
   <div class="container">
-    <h2 class="h-section center intro__title">Todas las soluciones de ingeniería<br>que tu proyecto exige, en <span class="o2">un solo equipo</span></h2>
+    <h2 class="h-section center intro__title">Todas las soluciones de ingeniería <br>que tu proyecto exige, en <span class="o2">un solo equipo</span></h2>
     <div class="intro-split">
       <div class="intro-split__text">
         <span class="divider divider--left"></span>
@@ -682,7 +682,7 @@ function buildService(svc) {
 <section class="section section--dark cat-results reveal">
   <div class="container">
     <div class="section__head">
-      <h2 class="h-slab on-dark">Nuestra mejor garantía es la<br>operatividad de nuestros clientes.</h2>
+      <h2 class="h-slab on-dark">Nuestra mejor garantía es la <br>operatividad de nuestros clientes.</h2>
       <span class="divider"></span>
       <p class="lead on-dark">Con criterios de calidad, entrega a tiempo y ejecución impecable.</p>
     </div>

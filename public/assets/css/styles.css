@@ -735,3 +735,74 @@ button { font: inherit; cursor: pointer; }
 .svc-icons--zz { padding: 20px 0 0 53px; }
 .zz--rev .svc-icons--zz { justify-content: flex-end; padding: 20px 53px 0 0; }
 @media (max-width: 960px) { .svc-icons--zz, .zz--rev .svc-icons--zz { justify-content: flex-start; padding: 18px 16px 0; } }
+
+/* ── Móvil: página más compacta ─────────────────────────────── */
+@media (max-width: 600px) {
+  .section, .section--dark#servicios, .cta-photo { padding: 44px 0; }
+  .section__head { margin-bottom: 28px; gap: 16px; }
+  .intro__title { margin-bottom: 24px; }
+  .intro-split { gap: 24px; }
+  .intro-split__text { gap: 18px; }
+  .icons-row { margin: 32px auto 0; gap: 24px 12px; }
+  .icons-row img { width: 60px; height: 60px; }
+  .icons-row a { font-size: 15px; }
+  .years__cta, .cards-cta { margin-top: 28px; }
+  /* Tarjetas de servicios: dos por fila */
+  .cards { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; }
+  .card__img { height: 110px; }
+  .card__body { padding: 8px 10px 12px; }
+  .card__title { font-size: 13px; }
+  .card__text { font-size: 10.5px; }
+  /* Aliados más compactos */
+  .partners__row { margin-top: 20px; gap: 14px 20px; justify-content: center; }
+  .partners__row img { height: 44px; }
+  /* Opiniones: carrusel horizontal deslizable en lugar de 6 tarjetas apiladas */
+  .testimonials { display: flex; grid-template-columns: none; gap: 14px; overflow-x: auto; scroll-snap-type: x mandatory; margin: 0 -16px; padding: 4px 16px 14px; scrollbar-width: none; }
+  .testimonials::-webkit-scrollbar { display: none; }
+  .quote { flex: 0 0 82%; scroll-snap-align: center; }
+  /* Preguntas */
+  .why { gap: 16px; }
+  .why__q { min-height: 64px; }
+  .why__plus { width: 44px; height: 44px; line-height: 44px; font-size: 30px; }
+  /* Mapa, sedes y formularios */
+  .ready, .contact-split { gap: 28px; }
+  .ready__text, .contact-split__text { gap: 18px; }
+  .form { gap: 14px; }
+  .form textarea, .cta-photo .form textarea, .svc-page .form textarea { min-height: 150px; }
+  /* Nosotros, categorías y servicios */
+  .nos-about .about-split { margin-top: 36px; }
+  .nos-about .about-split--rev { margin-top: 28px; }
+  .about-split, .about-split--rev { gap: 20px; }
+  .zigzag { gap: 36px; }
+  .cat-zz__title { margin-bottom: 28px; }
+  .svc-page .details { margin-top: 36px; }
+  .sol-page__intro { margin: 20px auto 32px; }
+  .sol-page__sub { margin-top: 48px; }
+  .sol-page__sub + .divider { margin: 20px auto 28px; }
+  .sol-page .sol-grid, .sol-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; }
+  .sol-card { min-height: 0; }
+  .sol-card .crop { height: 110px; }
+  .sol-card .card__body { padding: 8px 10px 12px; gap: 6px; }
+  .sol-card .card__title { font-size: 12.5px; }
+  /* Pie */
+  .site-footer { padding: 36px 0; }
+  .site-footer .container { gap: 22px; }
+  .footer__cols { gap: 24px; }
+  .footer__menu { gap: 14px; }
+  .footer__svc { gap: 10px; }
+}
+@media (max-width: 600px) {
+  /* Los saltos de línea de Figma son para escritorio: en celular el título fluye solo */
+  main h1 br, main h2 br, main h3 br, main .years br { display: none; }
+  .quote { scroll-snap-align: start; }
+  .testimonials { scroll-padding: 0 16px; }
+  .zz__text, .zz--rev .zz__text { font-size: 16px; line-height: 1.35; }
+  .zz__bar h3, .cat-zz .zz__bar h3 { font-size: 20px; }
+  .cat-intro .lead, .about-split .lead, .nos-about__text, .nos-philo__text, .svc-page .details__text, .article__body { font-size: 16px; line-height: 1.4; }
+  .h-section, .h-slab { font-size: 25px; }
+}
+@media (max-width: 600px) {
+  .testimonials { justify-content: flex-start; }
+  .svc-top, .details, .svc-page .svc-top, .svc-page .details { grid-template-columns: minmax(0, 1fr); }
+  .svc-top__text h1 { overflow-wrap: anywhere; }
+}
