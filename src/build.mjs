@@ -31,6 +31,37 @@ const manifest = JSON.parse(fs.readFileSync('src/img-manifest.json', 'utf8'));
 let lastPriority = null; // imagen principal (LCP) de la página en construcción
 const ogImages = new Set(); // imágenes para la vista previa al compartir (se generan en JPG 1200×630)
 const pagesOut = []; // páginas escritas, para sitemap.xml
+// Datos estructurados de la empresa (Google, Bing y asistentes de IA los leen para entender quién es y dónde está)
+const orgSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'GeneralContractor',
+  '@id': `${site.url}/#empresa`,
+  name: site.legal,
+  alternateName: site.name,
+  slogan: site.tagline,
+  url: `${site.url}/`,
+  logo: `${site.url}/assets/img/logo-384.webp`,
+  image: `${site.url}/assets/img/og/hero-home.jpg`,
+  description: 'Empresa venezolana de ingeniería: obras civiles y construcción, climatización y refrigeración, gestión de inmuebles y mantenimiento, y servicios para el sector hotelero. Más de 11 años de trayectoria.',
+  telephone: '+58-274-4174855',
+  email: undefined,
+  areaServed: { '@type': 'Country', name: 'Venezuela' },
+  sameAs: [site.instagram].concat(site.facebook && site.facebook !== '#' ? [site.facebook] : []),
+  address: {
+    '@type': 'PostalAddress',
+    streetAddress: 'Calle Principal, Edificio La Castellana, Piso 5, Oficina 5-2, Urb. La Magdalena',
+    addressLocality: 'Mérida',
+    addressRegion: 'Mérida',
+    addressCountry: 'VE',
+  },
+  department: [{
+    '@type': 'GeneralContractor',
+    name: `${site.legal} — Sede Región Capital (Operaciones y Galpón)`,
+    telephone: '+58-412-7691174',
+    address: { '@type': 'PostalAddress', streetAddress: 'Sector 1 Cartanal, Galpón #10', addressLocality: 'Santa Teresa del Tuy', addressRegion: 'Miranda', addressCountry: 'VE' },
+  }],
+  contactPoint: { '@type': 'ContactPoint', telephone: '+58-412-7691174', contactType: 'customer service', availableLanguage: 'Spanish' },
+};
 // Recorta un texto a ~155 caracteres sin cortar palabras (meta description)
 const clip = (s, n = 155) => { const t = String(s).replace(/\s+/g, ' ').trim(); return t.length <= n ? t : t.slice(0, t.lastIndexOf(' ', n)).replace(/[,;:.]$/, '') + '…'; };
 
@@ -232,7 +263,7 @@ function footer() {
 }
 
 // ── Esqueleto de página ─────────────────────────────────────────
-function page({ title, description, active, bodyClass = '', body, bodyAttrs = '', ogImg = '' }) {
+function page({ title, description, active, bodyClass = '', body, bodyAttrs = '', ogImg = '', schema = null }) {
   // Precarga de la imagen principal (LCP) registrada por heroSection durante la construcción del body
   const pre = lastPriority;
   lastPriority = null;
@@ -265,6 +296,7 @@ function page({ title, description, active, bodyClass = '', body, bodyAttrs = ''
 <meta name="twitter:card" content="summary_large_image">
 <link rel="icon" type="image/webp" href="/assets/img/logo-192.webp">
 <link rel="apple-touch-icon" href="/assets/img/logo-192.webp">
+<script type="application/ld+json">${JSON.stringify([orgSchema, ...(schema ? [schema] : [])])}</script>
 <link rel="preload" href="/assets/fonts/roboto-slab-latin.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/assets/fonts/inter-latin.woff2" as="font" type="font/woff2" crossorigin>
 ${preloadImg}<style>${fontsCss}${minCss}</style>
@@ -704,7 +736,7 @@ function buildService(svc) {
 
 ${svcFooterCta(svc.title)}
 `;
-  write(`servicios/${svc.slug}.html`, page({ title: svc.title, description: svc.summary, active: 'servicios', body, ogImg: svc.img }));
+  write(`servicios/${svc.slug}.html`, page({ title: svc.title, description: svc.summary, active: 'servicios', body, ogImg: svc.img, schema: { '@context': 'https://schema.org', '@type': 'Service', name: svc.title, description: svc.summary, serviceType: cat.name, provider: { '@id': `${site.url}/#empresa` }, areaServed: { '@type': 'Country', name: 'Venezuela' }, url: `${site.url}/servicios/${svc.slug}.html`, image: `${site.url}/assets/img/og/${svc.img.replace(/\.\w+$/, '')}.jpg` } }));
 }
 
 // ═══════════════════════════════ PÁGINA: NOSOTROS ═══════════════════════════════
@@ -857,7 +889,7 @@ function buildArticle(a) {
 
 ${svcFooterCta()}
 `;
-  write(`soluciones/${a.slug}.html`, page({ title: a.cardTitle.replace(/\n/g, ' '), description: a.text, active: 'soluciones', body, ogImg: a.img }));
+  write(`soluciones/${a.slug}.html`, page({ title: a.cardTitle.replace(/\n/g, ' '), description: a.text, active: 'soluciones', body, ogImg: a.img, schema: { '@context': 'https://schema.org', '@type': 'Article', headline: a.title.replace(/\n/g, ' ').slice(0, 110), description: a.text, image: `${site.url}/assets/img/og/${a.img.replace(/\.\w+$/, '')}.jpg`, author: { '@id': `${site.url}/#empresa` }, publisher: { '@id': `${site.url}/#empresa` }, mainEntityOfPage: `${site.url}/soluciones/${a.slug}.html`, inLanguage: 'es-VE' } }));
 }
 
 // ═══════════════════════════════ PÁGINA: CONTACTO ═══════════════════════════════
@@ -927,7 +959,40 @@ fs.writeFileSync(path.join(OUT, 'sitemap.xml'), `<?xml version="1.0" encoding="U
 ${pagesOut.map((u) => `  <url><loc>${u}</loc><lastmod>${today}</lastmod></url>`).join('\n')}
 </urlset>
 `);
-fs.writeFileSync(path.join(OUT, 'robots.txt'), `User-agent: *\nAllow: /\n\nSitemap: ${site.url}/sitemap.xml\n`);
+const aiBots = ['Googlebot', 'Bingbot', 'GPTBot', 'OAI-SearchBot', 'ChatGPT-User', 'ClaudeBot', 'Claude-SearchBot', 'PerplexityBot', 'Google-Extended', 'Applebot-Extended', 'CCBot'];
+fs.writeFileSync(path.join(OUT, 'robots.txt'), `# Buscadores y asistentes de IA son bienvenidos a leer todo el sitio
+User-agent: *
+Allow: /
+Disallow: /404.html
+
+${aiBots.map((b) => `User-agent: ${b}\nAllow: /`).join('\n\n')}
+
+Sitemap: ${site.url}/sitemap.xml
+`);
+
+// llms.txt: resumen del sitio para asistentes de IA (formato propuesto en llmstxt.org)
+const pl = (s) => String(s).replace(/\*\*|\{\/?o\}/g, '').replace(/\s*\n\s*/g, ' ').trim();
+fs.writeFileSync(path.join(OUT, 'llms.txt'), `# ${site.legal}
+
+> Empresa venezolana de ingeniería con más de 11 años de trayectoria. Un sólo equipo para obras civiles y construcción, climatización y refrigeración, gestión de inmuebles y mantenimiento, y servicios para el sector hotelero. Sede principal en Mérida (región Andes) y sede de operaciones en Santa Teresa del Tuy, Miranda (región Capital).
+
+- Teléfonos: 0274-4174855 / 0412-7691174 (WhatsApp: +58 412-7691174)
+- Instagram: ${site.instagram}
+- Dirección principal: Calle Principal, Edificio La Castellana, Piso 5, Oficina 5-2, Urb. La Magdalena, Mérida, Edo. Mérida, Venezuela.
+
+## Páginas principales
+- [Inicio](${site.url}/): presentación y servicios destacados
+- [Nosotros](${site.url}/nosotros.html): misión, visión y filosofía operativa
+- [Soluciones](${site.url}/soluciones.html): artículos técnicos y casos
+- [Contacto](${site.url}/contacto.html): formulario, sedes y WhatsApp
+
+${categories.map((cat) => `## ${cat.name}
+[${cat.name}](${site.url}/servicios/${cat.slug}.html): ${pl(cat.subtitle)}
+${services.filter((s) => s.cat === cat.slug).map((s) => `- [${s.title}](${site.url}/servicios/${s.slug}.html): ${pl(s.summary)}`).join('\n')}`).join('\n\n')}
+
+## Artículos
+${articles.map((a) => `- [${pl(a.title)}](${site.url}/soluciones/${a.slug}.html): ${pl(a.text)}`).join('\n')}
+`);
 
 // Imágenes para compartir (WhatsApp, Facebook…): JPG 1200×630, solo si no existen ya
 fs.mkdirSync(path.join(OUT, 'assets/img/og'), { recursive: true });
