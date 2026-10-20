@@ -806,3 +806,6 @@ button { font: inherit; cursor: pointer; }
   .svc-top, .details, .svc-page .svc-top, .svc-page .details { grid-template-columns: minmax(0, 1fr); }
   .svc-top__text h1 { overflow-wrap: anywhere; }
 }
+@media (min-width: 961px) {
+  .about-split .h-section { font-size: 32px; white-space: nowrap; }
+}

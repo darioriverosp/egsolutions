@@ -180,7 +180,7 @@ function mobileServices() {
     )
     .join('')}</div>`;
 }
-function header(active) {
+function header(active, brand = site.name) {
   const link = (key, label, href) =>
     `<a class="nav__link" href="${href}" ${active === key ? 'aria-current="page"' : ''}>${esc(label)}</a>`;
   return `<header class="site-header">
@@ -188,7 +188,7 @@ function header(active) {
     <a class="brand" href="/index.html" aria-label="${esc(site.name)} — inicio">
       ${img('logo.png', site.name, 'class="brand__logo"')}
       <span>
-        <span class="brand__name">${esc(site.name)}</span>
+        <span class="brand__name">${esc(brand)}</span>
         <span class="brand__tag">${esc(site.tagline)}</span>
       </span>
     </a>
@@ -210,7 +210,7 @@ function header(active) {
 <div class="mega-backdrop" data-mega-backdrop></div>`;
 }
 
-function footer() {
+function footer(brand = site.name, legal = site.legal) {
   const sedes = site.sedes
     .map(
       (s) => `<div class="sede">
@@ -228,7 +228,7 @@ function footer() {
     <div class="footer__top">
       ${img('logo.png', site.name, 'class="brand__logo"')}
       <span>
-        <span class="brand__name">${esc(site.name)}</span>
+        <span class="brand__name">${esc(brand)}</span>
         <span class="brand__tag">${esc(site.tagline)}</span>
       </span>
       <a class="footer__ig" href="${site.instagram}" target="_blank" rel="noopener" aria-label="Síguenos en Instagram ${esc(site.instagramHandle)}">
@@ -237,7 +237,7 @@ function footer() {
       </a>
     </div>
     <div class="footer__about">
-      En <strong>${esc(site.legal)}</strong>, conjugamos todas las áreas de la ingeniería para ofrecerte un
+      En <strong>${esc(legal)}</strong>, conjugamos todas las áreas de la ingeniería para ofrecerte un
       <strong>servicio integral sin fricciones.</strong> Desde el sector residencial hasta el industrial, trabajamos
       para garantizar la óptima operatividad de tus inmuebles con soluciones definitivas.
     </div>
@@ -263,14 +263,14 @@ function footer() {
 }
 
 // ── Esqueleto de página ─────────────────────────────────────────
-function page({ title, description, active, bodyClass = '', body, bodyAttrs = '', ogImg = '', schema = null }) {
+function page({ title, description, active, bodyClass = '', body, bodyAttrs = '', ogImg = '', schema = null, brand = site.name }) {
   // Precarga de la imagen principal (LCP) registrada por heroSection durante la construcción del body
   const pre = lastPriority;
   lastPriority = null;
   const og = ogImg || (pre && pre.name) || 'hero-home.webp';
   ogImages.add(og);
   const ogUrl = `${site.url}/assets/img/og/${og.replace(/\.\w+$/, '')}.jpg`;
-  const fullTitle = `${title} · ${site.name}`;
+  const fullTitle = `${title} · ${brand}`;
   const desc = clip(description);
   const preloadImg = pre
     ? `<link rel="preload" as="image" href="${pre.src}"${pre.srcset ? ` imagesrcset="${pre.srcset}" imagesizes="${pre.sizes}"` : ''} fetchpriority="high">\n`
@@ -302,11 +302,11 @@ function page({ title, description, active, bodyClass = '', body, bodyAttrs = ''
 ${preloadImg}<style>${fontsCss}${minCss}</style>
 </head>
 <body class="${bodyClass}" data-whatsapp="${site.whatsapp}" ${bodyAttrs}>
-${header(active)}
+${header(active, brand)}
 <main>
 ${body}
 </main>
-${footer()}
+${footer(brand, brand === site.name ? site.legal : brand)}
 </body>
 </html>`;
 }
@@ -759,22 +759,22 @@ ${heroSection({
   <div class="container">
     <div class="nos-about__head">
       ${img('ico-usergroup.svg', '', 'class="nos-about__icon"')}
-      <h2 class="h-section">¿Quiénes somos?</h2>
+      <h2 class="h-section">¿Quiénes somos en <span class="o">EG Solutions C.A.</span>?</h2>
       <span class="divider"></span>
-      <p class="nos-about__text"><strong>EG SOLUTIONS C.A.</strong>, es una firma de ingeniería dedicada a la ejecución integral de <strong>soluciones en infraestructura, obras civiles y mantenimiento corporativo.</strong> Nos especializamos en intervenir y optimizar instalaciones con altas exigencias operativas: corporativas, industriales, hoteleras y centros de salud en Venezuela. Trabajamos bajo la premisa de la ingeniería aplicada, asumiendo el liderazgo de proyectos multidisciplinarios complejos para transformarlos en resultados viables, seguros y duraderos. No solo ejecutamos obras; generamos valor agregado para prolongar el ciclo de vida de cada activo.</p>
+      <p class="nos-about__text"><strong>EG Solutions C.A.</strong> es una firma de ingeniería dedicada a la ejecución integral de <strong>soluciones en infraestructura, obras civiles y mantenimiento corporativo.</strong> Nos especializamos en intervenir y optimizar instalaciones con altas exigencias operativas: corporativas, industriales, hoteleras y centros de salud en Venezuela. Trabajamos bajo la premisa de la ingeniería aplicada, asumiendo el liderazgo de proyectos multidisciplinarios complejos para transformarlos en resultados viables, seguros y duraderos. No solo ejecutamos obras; generamos valor agregado para prolongar el ciclo de vida de cada activo.</p>
       ${btn('Contáctanos', '/contacto.html', 'dark')}
     </div>
     <div class="about-split">
       <div class="about-split__text">
-        <h2 class="h-section">Nuestra <span class="o">Misión</span></h2>
+        <h2 class="h-section"><span class="o">Misión</span> de EG Solutions C.A.</h2>
         <p class="lead">Proporcionar soluciones infraestructurales y de mantenimiento preventivo/correctivo que garanticen la operatividad ininterrumpida de los espacios de nuestros clientes. Integramos recursos técnicos, personal calificado e innovación constante para optimizar inmuebles y servicios, convirtiéndonos en el pilar que sostiene su negocio núcleo.</p>
       </div>
-      ${img('nos-mision.webp', 'Equipo de EG SOLUTIONS trabajando')}
+      ${img('nos-mision.webp', 'Equipo de EG Solutions C.A. trabajando')}
     </div>
     <div class="about-split--rev about-split">
-      ${img('nos-vision.webp', 'Obra de EG SOLUTIONS')}
+      ${img('nos-vision.webp', 'Obra de EG Solutions C.A.')}
       <div class="about-split__text">
-        <h2 class="h-section">Nuestra <span class="o">Visión</span></h2>
+        <h2 class="h-section"><span class="o">Visión</span> de EG Solutions C.A.</h2>
         <p class="lead">Consolidarnos como el aliado estratégico y la firma de ingeniería de referencia en el sector de servicios en Venezuela, reconocidos por desarrollar prácticas de ejecución impecables, altos estándares de calidad y la capacidad de satisfacer las exigencias técnicas más rigurosas del mercado.</p>
       </div>
     </div>
@@ -785,9 +785,9 @@ ${heroSection({
   ${deco('chevrons', 'left:0;top:34px;width:340px')}
   ${deco('chevrons', 'right:0;top:34px;width:340px;transform:scaleX(-1)')}
   <div class="container">
-    <h2 class="h-slab on-dark center">Filosofía Operativa</h2>
+    <h2 class="h-slab on-dark center">Filosofía Operativa <br>de <span class="o">EG Solutions C.A.</span></h2>
     <span class="divider"></span>
-    <p class="nos-philo__text">Entendemos que detrás de cada proyecto de infraestructura hay un reto crítico para la operatividad de una empresa. Por ello, nuestra filosofía se fundamenta en la resiliencia corporativa y el esfuerzo calculado. Abordamos cada obstáculo técnico con una planificación minuciosa y un compromiso inquebrantable. El éxito de EG Solutions se mide por la tranquilidad operativa de los clientes a los que servimos.</p>
+    <p class="nos-philo__text">Entendemos que detrás de cada proyecto de infraestructura hay un reto crítico para la operatividad de una empresa. Por ello, nuestra filosofía se fundamenta en la resiliencia corporativa y el esfuerzo calculado. Abordamos cada obstáculo técnico con una planificación minuciosa y un compromiso inquebrantable. El éxito de EG Solutions C.A. se mide por la tranquilidad operativa de los clientes a los que servimos.</p>
   </div>
 </section>
 <div class="strip">${['nos-strip1.webp', 'nos-strip2.webp', 'nos-strip3.webp'].map((i) => img(i, '', '', { sizes: '(max-width: 600px) 100vw, 34vw' })).join('')}</div>
@@ -796,7 +796,7 @@ ${heroSection({
   <div class="container">
     ${iconsRow()}
     <div class="cards-cta">${btn('Conoce nuestros proyectos más destacados', '/soluciones.html', 'orange2', 'btn--wide')}</div>
-    <h2 class="h-section center nos-projects__title"><span class="o">11 años de trayectoria</span> ejecutando ingeniería <br>con alto nivel de profesionalismo.</h2>
+    <h2 class="h-section center nos-projects__title">EG Solutions C.A.: <span class="o">11 años de trayectoria</span> <br>ejecutando ingeniería con alto nivel de profesionalismo.</h2>
     ${cardsCarousel(projectCards, projectCard)}
   </div>
 </section>
@@ -805,7 +805,7 @@ ${testimonialsSection({ title: 'Opiniones de nuestros clientes', sub: 'No solo e
 
 ${partnersStrip('Referentes de nuestras soluciones y servicios')}
 `;
-  write('nosotros.html', page({ title: 'Nosotros', description: 'Conoce a EG SOLUTIONS C.A.: misión, visión y 11 años de trayectoria en ingeniería e infraestructura en Venezuela.', active: 'nosotros', body }));
+  write('nosotros.html', page({ title: 'Nosotros', description: 'Conoce a EG Solutions C.A.: misión, visión y 11 años de trayectoria en ingeniería e infraestructura en Venezuela.', active: 'nosotros', body, brand: 'EG Solutions C.A.' }));
 }
 
 // ═══════════════════════════════ PÁGINA: SOLUCIONES ═══════════════════════════════
