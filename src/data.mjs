@@ -170,6 +170,7 @@ export const services = [
   },
   {
     slug: 'remodelacion-hospitalaria', cat: 'obras-civiles', img: 'card-remod-hospitalaria.webp',
+    icons: ['ico-med-pulse.svg', 'ico-med-stethoscope.svg', 'ico-med-kit.svg'], // iconos enviados por el cliente (Figma)
     title: 'Remodelación Hospitalaria y Clínica', zzTitle: 'Remodelación\nHospitalaria y Clínica',
     summary: 'Adecuación civil de quirófanos y centros de salud bajo estrictas normativas. Instalación de superficies asépticas, acabados sanitarios y acondicionamiento de áreas críticas para garantizar un ecosistema médico sin riesgo de contaminación cruzada.',
     intro: 'Adecuación civil de quirófanos y centros de salud bajo estrictas normativas. Instalación de superficies asépticas, acabados sanitarios y acondicionamiento de áreas críticas para garantizar un ecosistema médico sin riesgo de contaminación cruzada.',

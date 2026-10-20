@@ -133,6 +133,8 @@ function megaMenu() {
     </div>
   </div>`;
 }
+// Fila de iconos propios de un servicio (p. ej. Remodelación Hospitalaria)
+const svcIcons = (s, cls) => (s.icons ? `<div class="svc-icons ${cls}" aria-hidden="true">${s.icons.map((i) => img(i, '')).join('')}</div>` : '');
 // Menú móvil: categorías y sus servicios como enlaces (el mega menú de escritorio no cabe en el celular)
 function mobileServices() {
   return `<div class="nav__sub" id="nav-servicios">${categories
@@ -586,6 +588,7 @@ function buildCategory(cat) {
         <a class="zz__media" href="/servicios/${s.slug}.html" tabindex="-1" aria-hidden="true">${img(s.img, s.title, 'class="zz__photo"')}</a>
         <div class="zz__body">
           <div class="zz__bar${cat.barDark ? ' zz__bar--dark' : ''}"><h3><a href="/servicios/${s.slug}.html">${plain(s.zzTitle || s.title)}</a></h3></div>
+          ${svcIcons(s, 'svc-icons--zz')}
           <p class="zz__text">${esc(s.summary)}</p>
         </div>
       </div>`
@@ -657,6 +660,7 @@ function buildService(svc) {
   <div class="container">
     <div class="svc-top">
       <div class="svc-top__text">
+        ${svcIcons(svc, 'svc-icons--top')}
         <h1>${plain(svcTitles[svc.slug] || svc.pageTitle || svc.title)}</h1>
         <div class="lead">${paragraphs(svc.intro)}</div>
         <h2>Cotiza con nosotros</h2>

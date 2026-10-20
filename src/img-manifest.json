@@ -657,6 +657,21 @@
   "w": 24,
   "h": 24
  },
+ "ico-med-kit.svg": {
+  "hash": "8df65e98",
+  "w": 64,
+  "h": 64
+ },
+ "ico-med-pulse.svg": {
+  "hash": "c1cb2cc6",
+  "w": 64,
+  "h": 64
+ },
+ "ico-med-stethoscope.svg": {
+  "hash": "6efd8900",
+  "w": 64,
+  "h": 64
+ },
  "ico-phone.svg": {
   "hash": "3a647d5e",
   "w": 13,

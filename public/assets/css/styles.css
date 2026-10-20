@@ -727,3 +727,11 @@ button { font: inherit; cursor: pointer; }
   .nav__ig { display: flex; align-items: center; justify-content: center; gap: 10px; margin-top: 12px; padding: 12px; border: 2px solid var(--orange); border-radius: 14px; color: var(--orange); font-weight: 700; font-size: 16px; }
   .nav__ig img { width: 22px; height: 22px; }
 }
+
+/* Iconos propios de un servicio */
+.svc-icons { display: flex; gap: 22px; align-items: center; }
+.svc-icons img { width: 44px; height: 44px; }
+.svc-icons--top { margin-bottom: 18px; }
+.svc-icons--zz { padding: 20px 0 0 53px; }
+.zz--rev .svc-icons--zz { justify-content: flex-end; padding: 20px 53px 0 0; }
+@media (max-width: 960px) { .svc-icons--zz, .zz--rev .svc-icons--zz { justify-content: flex-start; padding: 18px 16px 0; } }
