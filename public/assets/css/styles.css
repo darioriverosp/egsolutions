@@ -721,8 +721,8 @@ button { font: inherit; cursor: pointer; }
 /* Instagram en la cabecera (móvil) y dentro del menú hamburguesa */
 .header__ig, .nav__ig { display: none; }
 @media (max-width: 960px) {
-  .header__ig { display: grid; place-items: center; width: 40px; height: 40px; margin-left: auto; border-radius: 50%; background: var(--orange); }
-  .header__ig img { width: 22px; height: 22px; filter: brightness(0) invert(1); }
+  .header__ig { display: grid; place-items: center; flex: 0 0 40px; width: 40px; height: 40px; margin-left: auto; border-radius: 50%; background: var(--orange); }
+  .header__ig img { width: 22px; height: 22px; object-fit: contain; filter: brightness(0) invert(1); }
   .header__ig + .nav-toggle { margin-left: 8px; }
   .nav__ig { display: flex; align-items: center; justify-content: center; gap: 10px; margin-top: 12px; padding: 12px; border: 2px solid var(--orange); border-radius: 14px; color: var(--orange); font-weight: 700; font-size: 16px; }
   .nav__ig img { width: 22px; height: 22px; }
