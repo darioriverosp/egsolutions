@@ -809,3 +809,17 @@ button { font: inherit; cursor: pointer; }
 @media (min-width: 961px) {
   .about-split .h-section { font-size: 32px; white-space: nowrap; }
 }
+/* Cabecera móvil: el nombre "EG SOLUTIONS C.A." cabe junto al Instagram y el menú */
+@media (max-width: 600px) {
+  .site-header__inner { gap: 8px; }
+  .brand { gap: 10px; flex-shrink: 1; min-width: 0; }
+  .brand__logo { width: 58px; }
+  .brand__name { font-size: 15px; white-space: nowrap; }
+  .header__ig, .nav-toggle { flex-shrink: 0; }
+  .header__ig { width: 36px; height: 36px; flex-basis: 36px; }
+}
+@media (max-width: 360px) {
+  .brand__logo { width: 48px; }
+  .brand__name { font-size: 13px; }
+  .brand { gap: 8px; }
+}
