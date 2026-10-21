@@ -252,7 +252,6 @@ function footer(brand = site.legal, legal = site.legal) {
     </div>
     <div class="footer__bottom">
       <span>egsolutions.net @ 2026. All rights reserved.</span>
-      <span>Resources by WebbyFrames.</span>
     </div>
   </div>
 </footer>
